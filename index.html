@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Evolution Roadmap</title>
+<style>
+  :root {
+    --purple: #6322E5;
+    --purple-light: #F3EEFB;
+    --purple-mid: #D4B8F9;
+    --dark: #003338;
+    --dark-light: #E6EDED;
+    --body: #2D2D2D;
+    --muted: #666;
+    --border: #E0E0E0;
+    --white: #FFFFFF;
+    --bg: #F8F7FC;
+    --card-shadow: 0 2px 8px rgba(99,34,229,0.08);
+    --card-hover: 0 4px 16px rgba(99,34,229,0.15);
+
+    /* Layer colours */
+    --pmm: #6322E5;
+    --pmm-bg: #F3EEFB;
+    --pmm-border: #D4B8F9;
+    --content: #1A6B70;
+    --content-bg: #E6F0F0;
+    --content-border: #8BB5B8;
+    --growth: #003338;
+    --growth-bg: #E6EDED;
+    --growth-border: #80A0A4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--body);
+    line-height: 1.5;
+    padding: 24px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--purple);
+    margin-bottom: 6px;
+  }
+  .header .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .header .meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .header .meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* ── PHASE LEGEND ── */
+  .phase-legend {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .phase-legend .phase-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+  }
+  .phase-legend .phase-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--purple);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .phase-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 24px;
+  }
+
+  /* ── GRID ── */
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: 160px 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    gap: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  /* Column headers */
+  .col-header {
+    background: var(--purple);
+    color: var(--white);
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.2);
+  }
+  .col-header:first-child {
+    background: var(--dark);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .col-header .phase-sub {
+    font-weight: 400;
+    font-size: 11px;
+    opacity: 0.85;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* Row labels */
+  .row-label {
+    padding: 16px 14px;
+    font-weight: 700;
+    font-size: 13px;
+    writing-mode: horizontal-tb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .row-label .layer-icon { font-size: 20px; margin-bottom: 6px; }
+  .row-label .layer-name { font-size: 12px; line-height: 1.3; }
+  .row-label .layer-owner { font-size: 10px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+  .row-label.pmm { background: var(--pmm-bg); color: var(--pmm); border-left: 4px solid var(--pmm); }
+  .row-label.content { background: var(--content-bg); color: var(--content); border-left: 4px solid var(--content); }
+  .row-label.growth { background: var(--growth-bg); color: var(--growth); border-left: 4px solid var(--growth); }
+  .row-label.tools { background: #FFF8E1; color: #F57F17; border-left: 4px solid #F57F17; }
+  .row-label.outcomes { background: #E8EAF6; color: #283593; border-left: 4px solid #283593; }
+
+  /* Cells */
+  .cell {
+    padding: 12px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 120px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 1.45;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    cursor: default;
+    position: relative;
+  }
+  .card:hover {
+    box-shadow: var(--card-hover);
+    transform: translateY(-1px);
+  }
+  .card.placeholder {
+    border-style: dashed;
+    border-color: var(--purple-mid);
+    background: var(--purple-light);
+    opacity: 0.75;
+  }
+  .card.placeholder::after {
+    content: '⏳ Placeholder';
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    font-size: 9px;
+    color: var(--purple);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  /* Hide the ::after badge when card-actions are visible (edit mode hover) */
+  body.edit-mode .card.placeholder:hover::after { opacity: 0; }
+
+  .card .card-title {
+    font-weight: 700;
+    font-size: 12px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card .card-title .status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .status.live { background: #4CAF50; }
+  .status.building { background: #FF9800; }
+  .status.planned { background: var(--border); }
+  .card .card-body { color: var(--muted); font-size: 11px; }
+  .card .card-body ul { padding-left: 14px; margin-top: 3px; }
+  .card .card-body li { margin-bottom: 2px; }
+  .card .card-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .tag-ai { background: #EDE7F6; color: #6322E5; }
+  .tag-habit { background: #FFF3E0; color: #E65100; }
+  .tag-tool { background: #E0F2F1; color: #00695C; }
+  .tag-metric { background: #E8EAF6; color: #283593; }
+
+  /* Row-specific cell tints */
+  .cell.pmm-cell { background: rgba(243, 238, 251, 0.3); }
+  .cell.content-cell { background: rgba(224, 242, 241, 0.3); }
+  .cell.growth-cell { background: rgba(230, 237, 237, 0.3); }
+  .cell.tools-cell { background: rgba(255, 248, 225, 0.3); }
+  .cell.outcomes-cell { background: rgba(232, 234, 246, 0.3); }
+
+  /* ── FLOW ARROWS ── */
+  .flow-section {
+    margin-top: 32px;
+    padding: 24px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .flow-section h2 {
+    font-size: 16px;
+    color: var(--purple);
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  .flow-diagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+  }
+  .flow-node {
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 140px;
+    line-height: 1.4;
+  }
+  .flow-node.pmm-node { background: var(--pmm-bg); color: var(--pmm); border: 2px solid var(--pmm-border); }
+  .flow-node.content-node { background: var(--content-bg); color: var(--content); border: 2px solid var(--content-border); }
+  .flow-node.growth-node { background: var(--growth-bg); color: var(--growth); border: 2px solid var(--growth-border); }
+  .flow-node.ai-node { background: #EDE7F6; color: var(--purple); border: 2px dashed var(--purple); font-style: italic; }
+  .flow-arrow {
+    font-size: 20px;
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 20px;
+    font-size: 11px;
+    color: var(--muted);
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .legend-box {
+    width: 20px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
+    border: 1px dashed var(--purple-mid);
+    background: var(--purple-light);
+  }
+
+  /* ── CHANNEL OUTPUTS ── */
+  .channels-section {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .channels-section h2 {
+    font-size: 16px;
+    color: var(--dark);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .channel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .channel-card {
+    background: var(--growth-bg);
+    border: 1px solid var(--growth-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+  .channel-card .ch-name { font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .channel-card .ch-detail { font-size: 11px; color: var(--muted); }
+
+  /* ── ABM PROGRAMS ── */
+  .abm-section {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .abm-section h2 {
+    font-size: 16px;
+    color: var(--purple);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .abm-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .abm-card {
+    background: var(--purple-light);
+    border: 1px solid var(--pmm-border);
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 11px;
+    text-align: center;
+  }
+  .abm-card .abm-name { font-weight: 700; color: var(--purple); font-size: 12px; margin-bottom: 4px; }
+  .abm-card .abm-product { font-size: 10px; color: var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .roadmap-grid { grid-template-columns: 120px 1fr 1fr 1fr; }
+    .abm-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .roadmap-grid { grid-template-columns: 100px 1fr; }
+    .abm-grid { grid-template-columns: 1fr 1fr; }
+    .channel-grid { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ═══════════════════════════════════════════
+     NEW: HEADER ACTIONS
+  ═══════════════════════════════════════════ */
+  .header-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .header-btn {
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .btn-outline {
+    border: 2px solid var(--purple);
+    background: transparent;
+    color: var(--purple);
+  }
+  .btn-outline:hover { background: var(--purple-light); }
+  .btn-outline.active { background: var(--purple); color: white; }
+  .btn-ghost {
+    border: 2px solid var(--border);
+    background: white;
+    color: var(--body);
+  }
+  .btn-ghost:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-light); }
+  .btn-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .sync-status {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 6px;
+    min-height: 18px;
+    color: transparent;
+    transition: color 0.3s;
+  }
+  .sync-status.sync-ok { color: #4CAF50; }
+  .sync-status.sync-error { color: #C62828; }
+  .sync-status.sync-saving { color: var(--purple); }
+  .sync-status.sync-local { color: var(--muted); }
+
+  /* ═══════════════════════════════════════════
+     NEW: SETTINGS PANEL
+  ═══════════════════════════════════════════ */
+  .settings-panel {
+    position: fixed;
+    top: 72px;
+    right: 24px;
+    width: 360px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    padding: 20px;
+    z-index: 300;
+  }
+  .settings-panel h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .settings-panel p.settings-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .settings-url {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    padding: 8px 10px;
+    background: var(--bg);
+    border-radius: 6px;
+    word-break: break-all;
+  }
+  .settings-url a { color: var(--purple); }
+  .settings-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .btn-reset-link {
+    font-size: 11px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    text-decoration: underline;
+  }
+  .btn-reset-link:hover { color: #C62828; }
+
+  /* ═══════════════════════════════════════════
+     NEW: CARD INTERACTIVE ELEMENTS
+  ═══════════════════════════════════════════ */
+  .card { position: relative; }
+
+  .card-actions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 3px;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 10;
+  }
+  body.edit-mode .card:hover .card-actions { opacity: 1; }
+
+  .card-action-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--muted);
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;
+    transition: all 0.15s;
+  }
+  .card-edit-btn:hover { background: var(--purple-light); color: var(--purple); border-color: var(--pmm-border); }
+  .card-delete-btn:hover { background: #FFEBEE; color: #C62828; border-color: #EF9A9A; }
+
+  /* ═══════════════════════════════════════════
+     NEW: ASSIGNEE CHIP
+  ═══════════════════════════════════════════ */
+  .card-assignee {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 6px;
+    padding-top: 5px;
+    border-top: 1px solid var(--border);
+  }
+  .assignee-avatar {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-size: 8px;
+    font-weight: 700;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════════
+     NEW: ADD CARD BUTTON
+  ═══════════════════════════════════════════ */
+  .add-card-btn {
+    display: none;
+    width: 100%;
+    padding: 7px 12px;
+    border: 2px dashed var(--purple-mid);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--purple);
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .add-card-btn:hover { background: var(--purple-light); border-color: var(--purple); }
+  body.edit-mode .add-card-btn { display: block; }
+
+  /* ═══════════════════════════════════════════
+     NEW: DRAG AND DROP
+  ═══════════════════════════════════════════ */
+  body.edit-mode .card { cursor: grab; }
+  body.edit-mode .card:active { cursor: grabbing; }
+  .card.dragging {
+    opacity: 0.35;
+    transform: scale(0.96);
+    box-shadow: 0 8px 24px rgba(99,34,229,0.25);
+  }
+  .cell.drag-over {
+    outline: 2px dashed var(--purple);
+    outline-offset: -3px;
+    background: rgba(99,34,229,0.05) !important;
+  }
+
+  /* ═══════════════════════════════════════════
+     NEW: MODAL
+  ═══════════════════════════════════════════ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
+  }
+  .modal {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.2);
+  }
+  .modal-wide { max-width: 640px; }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .modal-header h3 { font-size: 16px; font-weight: 700; color: var(--dark); }
+  .modal-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: white;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .modal-close:hover { background: #FFEBEE; color: #C62828; border-color: #EF9A9A; }
+  .modal-footer { display: flex; gap: 8px; margin-top: 20px; }
+
+  /* Form elements */
+  .form-group { margin-bottom: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 5px;
+  }
+  .form-input, .form-textarea, .form-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--body);
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-input:focus, .form-textarea:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(99,34,229,0.1);
+  }
+  .form-textarea { resize: vertical; min-height: 72px; }
+  .radio-group { display: flex; gap: 14px; flex-wrap: wrap; }
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .radio-label input { cursor: pointer; }
+  .status-dot-sm { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    padding: 8px 20px;
+    background: var(--purple);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+  .btn-secondary {
+    padding: 8px 16px;
+    background: white;
+    color: var(--body);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--purple); color: var(--purple); }
+
+  /* ═══════════════════════════════════════════
+     NEW: CLICKUP MODAL
+  ═══════════════════════════════════════════ */
+  .cu-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cu-tab {
+    padding: 8px 18px;
+    border: none;
+    background: transparent;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .cu-tab.active { color: var(--purple); border-bottom-color: var(--purple); font-weight: 700; }
+  .cu-tab:hover:not(.active) { color: var(--body); }
+  .cu-help { font-size: 12px; color: var(--muted); margin-bottom: 12px; line-height: 1.5; }
+  .cu-help a { color: var(--purple); }
+  .cu-textarea {
+    width: 100%;
+    height: 260px;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: 'SFMono-Regular', Consolas, monospace;
+    resize: none;
+    color: var(--body);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  .cu-log {
+    min-height: 80px;
+    max-height: 220px;
+    overflow-y: auto;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .cu-log a { color: var(--purple); }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<div class="header">
+  <h1>AI Evolution Roadmap</h1>
+  <div class="subtitle">Connecting the three layers of GTM with AI — framework and placeholders</div>
+  <div class="meta">
+    <span><strong>Owner:</strong>&nbsp;Kaylee Liu</span>
+    <span><strong>Status:</strong>&nbsp;Draft — awaiting alignment from Shauna</span>
+    <span><strong>Updated:</strong>&nbsp;Mar 2026</span>
+  </div>
+  <div class="header-actions">
+    <button id="editToggleBtn" class="header-btn btn-outline" onclick="toggleEditMode()">✏️ Edit</button>
+    <button id="saveBtn" class="header-btn btn-ghost" onclick="saveToGitHub()">💾 Save</button>
+    <button class="header-btn btn-ghost" onclick="openClickUpModal()">↗ Export to ClickUp</button>
+    <button id="settingsBtn" class="header-btn btn-ghost" onclick="toggleSettings()">⚙ Settings</button>
+  </div>
+  <div id="syncStatus" class="sync-status"></div>
+</div>
+
+<!-- ══════════ SETTINGS PANEL ══════════ -->
+<div id="settingsPanel" class="settings-panel" style="display:none">
+  <h3>GitHub sync settings</h3>
+  <p class="settings-desc">Connect to a GitHub repo to share edits across the team. Anyone with the token can save changes.</p>
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">Owner / org</label>
+      <input type="text" id="ghOwner" class="form-input" placeholder="e.g. shippit">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Repo name</label>
+      <input type="text" id="ghRepo" class="form-input" placeholder="e.g. ai-evolution-roadmap">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="form-label">Personal access token (PAT)</label>
+    <input type="password" id="ghPat" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxx">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Branch</label>
+    <input type="text" id="ghBranch" class="form-input" placeholder="main" value="main">
+  </div>
+  <div id="ghPageUrl" class="settings-url"></div>
+  <div class="settings-actions">
+    <button class="btn-reset-link" onclick="resetToDefault()">Reset to original baseline</button>
+    <button class="btn-primary" onclick="saveSettings()">Save settings</button>
+  </div>
+</div>
+
+<!-- Phase legend -->
+<div class="phase-legend">
+  <div class="phase-tag"><span class="phase-num">1</span> Foundations</div>
+  <div class="phase-tag"><span class="phase-num">2</span> Content Flywheel</div>
+  <div class="phase-tag"><span class="phase-num">3</span> Full System</div>
+</div>
+<div class="phase-note">Sequential, not date-bound — each phase unlocks the next. Pace depends on the whole team adopting the habits and workflows together.</div>
+
+<!-- ══════════ MAIN GRID ══════════ -->
+<div class="roadmap-grid">
+
+  <!-- Column headers -->
+  <div class="col-header">Layer</div>
+  <div class="col-header">Phase 1: Foundations<span class="phase-sub">Habits first. First AI workflow live.</span></div>
+  <div class="col-header">Phase 2: Content Flywheel<span class="phase-sub">AI pipeline generating across formats.</span></div>
+  <div class="col-header">Phase 3: Full System<span class="phase-sub">End-to-end, cross-function, always-on.</span></div>
+
+  <!-- ── ROW 1: Research & Positioning (PMM) ── -->
+  <div class="row-label pmm">
+    <span class="layer-icon">🔬</span>
+    <span class="layer-name">Research &amp; Positioning</span>
+    <span class="layer-owner">Product Marketing</span>
+  </div>
+  <div class="cell pmm-cell" id="cell-pmm-1"></div>
+  <div class="cell pmm-cell" id="cell-pmm-2"></div>
+  <div class="cell pmm-cell" id="cell-pmm-3"></div>
+
+  <!-- ── ROW 2: Content & Assets ── -->
+  <div class="row-label content">
+    <span class="layer-icon">✏️</span>
+    <span class="layer-name">Content &amp; Assets</span>
+    <span class="layer-owner">Content</span>
+  </div>
+  <div class="cell content-cell" id="cell-content-1"></div>
+  <div class="cell content-cell" id="cell-content-2"></div>
+  <div class="cell content-cell" id="cell-content-3"></div>
+
+  <!-- ── ROW 3: Distribution Engine (Growth) ── -->
+  <div class="row-label growth">
+    <span class="layer-icon">📡</span>
+    <span class="layer-name">Distribution Engine</span>
+    <span class="layer-owner">Growth Marketing</span>
+  </div>
+  <div class="cell growth-cell" id="cell-growth-1"></div>
+  <div class="cell growth-cell" id="cell-growth-2"></div>
+  <div class="cell growth-cell" id="cell-growth-3"></div>
+
+  <!-- ── ROW 4: Tools & Habits ── -->
+  <div class="row-label tools">
+    <span class="layer-icon">🔧</span>
+    <span class="layer-name">Tools &amp; Habits</span>
+    <span class="layer-owner">Cross-function</span>
+  </div>
+  <div class="cell tools-cell" id="cell-tools-1"></div>
+  <div class="cell tools-cell" id="cell-tools-2"></div>
+  <div class="cell tools-cell" id="cell-tools-3"></div>
+
+  <!-- ── ROW 5: Outcomes ── -->
+  <div class="row-label outcomes">
+    <span class="layer-icon">🎯</span>
+    <span class="layer-name">Outcomes</span>
+    <span class="layer-owner">What we get back</span>
+  </div>
+  <div class="cell outcomes-cell" id="cell-outcomes-1"></div>
+  <div class="cell outcomes-cell" id="cell-outcomes-2"></div>
+  <div class="cell outcomes-cell" id="cell-outcomes-3"></div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><span class="legend-dot" style="background:#4CAF50;"></span> Live / operational</div>
+  <div class="legend-item"><span class="legend-dot" style="background:#FF9800;"></span> Building now</div>
+  <div class="legend-item"><span class="legend-dot" style="background:var(--border);"></span> Planned</div>
+  <div class="legend-item"><span class="legend-box"></span> Placeholder — shape together</div>
+</div>
+
+<!-- ══════════ SYSTEM FLOW ══════════ -->
+<div class="flow-section">
+  <h2>System flow: how the three layers connect</h2>
+  <div class="flow-diagram">
+    <div class="flow-node pmm-node">
+      🔬 Research &amp; Positioning<br>
+      <small>Positioning, competitive intel, messaging, customer interviews</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node ai-node">
+      🤖 AI layer<br>
+      <small>Extracts, generates, adapts — handles the hand-offs</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node content-node">
+      ✏️ Content &amp; Assets<br>
+      <small>Curates pipeline, produces across formats, brand voice</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node ai-node">
+      🤖 AI layer<br>
+      <small>Adapts per cluster, generates variants from one brief</small>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node growth-node">
+      📡 Distribution Engine<br>
+      <small>ABM programs, paid media, email, events, partnerships</small>
+    </div>
+  </div>
+  <div style="text-align:center; margin-top:12px; font-size:12px; color:var(--muted);">
+    Signals and feedback loop back from Distribution → Research, closing the cycle.
+  </div>
+</div>
+
+<!-- ══════════ ABM PROGRAMS ══════════ -->
+<div class="abm-section">
+  <h2>Active ABM programs (fed by the system)</h2>
+  <div class="abm-grid">
+    <div class="abm-card">
+      <div class="abm-name">Trade &amp; Industrial</div>
+      <div class="abm-product">NowGo</div>
+      <div style="font-size:10px; color:var(--muted); margin-top:4px;">Fleet optimisation for trade distributors, 3PLs, service orgs</div>
+    </div>
+    <div class="abm-card">
+      <div class="abm-name">Perishables</div>
+      <div class="abm-product">NowGo</div>
+      <div style="font-size:10px; color:var(--muted); margin-top:4px;">Time-sensitive routing for beverage, food, healthcare</div>
+    </div>
+    <div class="abm-card">
+      <div class="abm-name">Bulky &amp; Valuables</div>
+      <div class="abm-product">Shippit + NowGo</div>
+      <div style="font-size:10px; color:var(--muted); margin-top:4px;">Complex CX for furniture, electronics, appliances</div>
+    </div>
+    <div class="abm-card">
+      <div class="abm-name">Pipeline Accelerator</div>
+      <div class="abm-product">Both</div>
+      <div style="font-size:10px; color:var(--muted); margin-top:4px;">Accounts already in pipeline — accelerate to close</div>
+    </div>
+    <div class="abm-card">
+      <div class="abm-name">Territory Accelerator</div>
+      <div class="abm-product">Shippit</div>
+      <div style="font-size:10px; color:var(--muted); margin-top:4px;">T1–T3 territory, signal-based automated activation</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CHANNEL OUTPUTS ══════════ -->
+<div class="channels-section">
+  <h2>Distribution channels (from your original flowchart)</h2>
+  <div class="channel-grid">
+    <div class="channel-card">
+      <div class="ch-name">LinkedIn Ads</div>
+      <div class="ch-detail">1:few cluster ads + 1:1 signal-triggered. Creative from Canva templates.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">Sales Email Drips</div>
+      <div class="ch-detail">CSM/AE persona-specific sequences. AI-generated from PMM research.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">Webflow Landing Pages</div>
+      <div class="ch-detail">Prospect-specific: logo, hero, headline, case studies, form.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">One-pagers (PDF)</div>
+      <div class="ch-detail">Pain points, persona, case studies. AI-drafted from PMM content database.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">Blog / SEO</div>
+      <div class="ch-detail">SEO research agent finds monthly recommendations. AI drafts, content refines.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">Events &amp; Webinars</div>
+      <div class="ch-detail">NowGo x ASCLA, RFS dinner, NORA clinic, retail workshops, Brauz takeover.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">Delivered Newsletter</div>
+      <div class="ch-detail">Primary research → content → distribution. The proven blueprint.</div>
+    </div>
+    <div class="channel-card">
+      <div class="ch-name">Organic Social</div>
+      <div class="ch-detail">AI-generated social angles from research inputs. Content team curates.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FOUR FOCUS AREAS ══════════ -->
+<div class="flow-section" style="margin-top:24px;">
+  <h2>How this supports the four business focus areas</h2>
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-top:12px;">
+    <div style="background:var(--purple-light); padding:14px; border-radius:8px; text-align:center;">
+      <div style="font-weight:700; color:var(--purple); font-size:13px; margin-bottom:4px;">Land with Enterprise (Retail)</div>
+      <div style="font-size:11px; color:var(--muted);">Sharper messaging from structured research. Faster content production.</div>
+    </div>
+    <div style="background:var(--purple-light); padding:14px; border-radius:8px; text-align:center;">
+      <div style="font-weight:700; color:var(--purple); font-size:13px; margin-bottom:4px;">Land with Trade</div>
+      <div style="font-size:11px; color:var(--muted);">Customer proof points from Delivered, repurposed into enablement automatically.</div>
+    </div>
+    <div style="background:var(--purple-light); padding:14px; border-radius:8px; text-align:center;">
+      <div style="font-weight:700; color:var(--purple); font-size:13px; margin-bottom:4px;">Expand with Shipping</div>
+      <div style="font-size:11px; color:var(--muted);">Full buyer journey content — upsell and cross-sell through targeted nurture.</div>
+    </div>
+    <div style="background:var(--purple-light); padding:14px; border-radius:8px; text-align:center;">
+      <div style="font-weight:700; color:var(--purple); font-size:13px; margin-bottom:4px;">Expand with B2B</div>
+      <div style="font-size:11px; color:var(--muted);">Broader content programme building awareness in wholesale and trade verticals.</div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center; margin-top:32px; font-size:11px; color:var(--muted); padding-bottom:24px;">
+  Draft roadmap — March 2026. Placeholders to be shaped after alignment with Shauna Butcher.
+</div>
+
+<!-- ══════════ EDIT MODAL ══════════ -->
+<div class="modal-overlay" id="editModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="editModalHeading">Edit card</h3>
+      <button class="modal-close" onclick="closeEditModal()">×</button>
+    </div>
+    <form id="editForm">
+      <div class="form-group">
+        <label class="form-label" for="editTitle">Title</label>
+        <input type="text" id="editTitle" class="form-input" placeholder="Card title" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="editBody">Description <span style="font-weight:400;color:var(--muted)">(1–2 sentences)</span></label>
+        <textarea id="editBody" class="form-textarea" placeholder="Short description…"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="editStatus" value="live">
+            <span class="status-dot-sm" style="background:#4CAF50"></span> Live
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="editStatus" value="building">
+            <span class="status-dot-sm" style="background:#FF9800"></span> Building
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="editStatus" value="planned">
+            <span class="status-dot-sm" style="background:#E0E0E0"></span> Planned
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="editStatus" value=""> None
+          </label>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="editTag">Tag</label>
+          <select id="editTag" class="form-select">
+            <option value="">None</option>
+            <option value="ai">AI workflow</option>
+            <option value="habit">Habit change</option>
+            <option value="tool">Tool</option>
+            <option value="metric">Milestone</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="editAssignee">Assignee</label>
+          <select id="editAssignee" class="form-select">
+            <option value="">Unassigned</option>
+            <option>Kaylee Liu</option>
+            <option>Tom Hayward</option>
+            <option>Sofia Nilsson Burston</option>
+            <option>Kathy Shi</option>
+            <option>Lana Brindley</option>
+            <option>Colin Fung</option>
+            <option>Christina Peterson</option>
+            <option>Shauna Butcher</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="editPlaceholder">
+          Mark as placeholder <span style="color:var(--muted);font-size:11px">(⏳ to be shaped together)</span>
+        </label>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn-primary">Save card</button>
+        <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ══════════ CLICKUP EXPORT MODAL ══════════ -->
+<div class="modal-overlay" id="clickupModal" style="display:none">
+  <div class="modal modal-wide">
+    <div class="modal-header">
+      <h3>Export to ClickUp</h3>
+      <button class="modal-close" onclick="closeClickUpModal()">×</button>
+    </div>
+    <div class="cu-tabs">
+      <button id="cuTabCopyBtn" class="cu-tab active" onclick="showCuTab('copy')">📋 Copy as text</button>
+      <button id="cuTabApiBtn" class="cu-tab" onclick="showCuTab('api')">↗ Push via API</button>
+    </div>
+
+    <!-- Tab: Copy -->
+    <div id="cuTabCopy">
+      <p class="cu-help">Copy this structured task list and paste into ClickUp, Notion, or share it directly.</p>
+      <textarea id="cuCopyText" class="cu-textarea" readonly></textarea>
+      <div class="modal-footer">
+        <button class="btn-primary" id="cuCopyBtn" onclick="copyCuText()">Copy to clipboard</button>
+        <button class="btn-secondary" onclick="closeClickUpModal()">Close</button>
+      </div>
+    </div>
+
+    <!-- Tab: API Push -->
+    <div id="cuTabApi" style="display:none">
+      <p class="cu-help">
+        Push all cards directly to a ClickUp list as tasks. Get your API token from
+        <a href="https://app.clickup.com/settings/apps" target="_blank">ClickUp Settings → Apps</a>.
+        Find your List ID from the URL when viewing a list: <code style="font-size:11px;background:var(--bg);padding:1px 4px;border-radius:3px">/list/901XXXXXXXXX</code>
+      </p>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">ClickUp API token</label>
+          <input type="password" id="cuToken" class="form-input" placeholder="pk_xxxxxxxxxxxxxxxx">
+        </div>
+        <div class="form-group">
+          <label class="form-label">List ID</label>
+          <input type="text" id="cuListId" class="form-input" placeholder="901xxxxxxxxx">
+        </div>
+      </div>
+      <div id="cuLog" class="cu-log" style="display:none"></div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="cuPushBtn" onclick="pushToClickUp()">Push all cards to ClickUp</button>
+        <button class="btn-secondary" onclick="closeClickUpModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// CONSTANTS
+// ══════════════════════════════════════════════════════════════
+
+const TAG_LABELS = { ai: 'AI workflow', habit: 'Habit change', tool: 'Tool', metric: 'Milestone' };
+
+const TEAM = [
+  '', 'Kaylee Liu', 'Tom Hayward', 'Sofia Nilsson Burston',
+  'Kathy Shi', 'Lana Brindley', 'Colin Fung', 'Christina Peterson', 'Shauna Butcher'
+];
+
+const LAYER_NAMES = {
+  pmm: 'Research & Positioning (PMM)',
+  content: 'Content & Assets',
+  growth: 'Distribution Engine (Growth)',
+  tools: 'Tools & Habits',
+  outcomes: 'Outcomes'
+};
+
+const PHASE_NAMES = {
+  1: 'Phase 1: Foundations',
+  2: 'Phase 2: Content Flywheel',
+  3: 'Phase 3: Full System'
+};
+
+const CELL_KEYS = [
+  'pmm-1','pmm-2','pmm-3',
+  'content-1','content-2','content-3',
+  'growth-1','growth-2','growth-3',
+  'tools-1','tools-2','tools-3',
+  'outcomes-1','outcomes-2','outcomes-3'
+];
+
+const AVATAR_COLORS = ['#6322E5','#003338','#1A6B70','#F57F17','#283593','#AD1457','#00838F'];
+
+// ══════════════════════════════════════════════════════════════
+// DEFAULT DATA — all cards encoded here (baseline)
+// ══════════════════════════════════════════════════════════════
+
+const DEFAULT_DATA = { cells: {
+
+  'pmm-1': [
+    { id:'p1a', title:'Structured Confluence template', body:'Consistent research template for positioning, competitive intel, and messaging. Structured so AI can parse it.', status:'building', tag:'habit', assignee:'', isPlaceholder:false },
+    { id:'p1b', title:'First AI workflow: sales enablement', body:'AI extracts structured data → generates first-draft battle cards, one-pagers, objection handlers. PMM reviews all output.', status:'building', tag:'ai', assignee:'', isPlaceholder:false },
+    { id:'p1c', title:'Delivered interviews (ongoing)', body:'Primary research engine. Customer and prospect interviews feeding the whole system.', status:'live', tag:'', assignee:'', isPlaceholder:false },
+    { id:'p1d', title:'Competitor analysis via Claude Code', body:'Use competitor analysis as the vehicle to learn Claude Code. Scheduled tasks make it a natural fit for recurring monitoring — a living example of Phase 1 AI habits in action.', status:'building', tag:'ai', assignee:'Sofia Nilsson Burston', isPlaceholder:false }
+  ],
+
+  'pmm-2': [
+    { id:'p2a', title:'Airtable output archive + scoring', body:'AI-generated enablement archived with metadata. PMM scores quarterly — scoring feeds back to improve AI output quality.', status:'planned', tag:'tool', assignee:'', isPlaceholder:false },
+    { id:'p2b', title:'Expanded research inputs', body:'Broader inputs beyond Delivered: analyst reports, market data, competitor monitoring. Shape after Shauna alignment.', status:'', tag:'', assignee:'', isPlaceholder:true }
+  ],
+
+  'pmm-3': [
+    { id:'p3a', title:'Human-in-the-loop → QA cadence', body:'After 2 quarters of PMM reviewing all outputs, shift to sampling-based QA. System opens to wider team for self-serve enablement.', status:'planned', tag:'ai', assignee:'', isPlaceholder:false },
+    { id:'p3b', title:'Automated research → enablement flow', body:'Research outputs feed enablement, content, and distribution automatically. Define triggers and quality gates together.', status:'', tag:'', assignee:'', isPlaceholder:true }
+  ],
+
+  'content-1': [
+    { id:'c1a', title:'Content workflow into ClickUp', body:'All content requests, briefs, and production tracked in ClickUp with clear ownership and due dates. Replaces Slack-based coordination.', status:'building', tag:'habit', assignee:'', isPlaceholder:false },
+    { id:'c1b', title:'Content audit & gap analysis', body:'Map existing assets to buyer journey stages and ABM programs. Identify gaps by format and persona.', status:'', tag:'', assignee:'Tom Hayward', isPlaceholder:true },
+    { id:'c1c', title:'Delivered / beehiiv pilot', body:'Tom leads beehiiv setup as a deliberate hands-on automation pilot — getting direct experience without relying on Kaylee. Long-term Customer.io migration stays on the horizon.', status:'building', tag:'habit', assignee:'Tom Hayward', isPlaceholder:false }
+  ],
+
+  'content-2': [
+    { id:'c2a', title:'AI content pipeline (always-on)', body:'AI agents take primary research (Delivered transcripts, positioning docs) and continuously generate: briefs, headlines, social angles, email concepts, video scripts. Content team reviews, selects, operationalises.', status:'planned', tag:'ai', assignee:'', isPlaceholder:false },
+    { id:'c2b', title:'Broader format coverage', body:'Expand from blog + social into video, infographics, on-site content, customer stories. AI handles first drafts across formats.', status:'planned', tag:'', assignee:'', isPlaceholder:false }
+  ],
+
+  'content-3': [
+    { id:'c3a', title:'1 interview → 5+ assets', body:'One Delivered interview or research input automatically generates content across multiple formats and channels. Content team curates, not creates from scratch.', status:'planned', tag:'metric', assignee:'', isPlaceholder:false },
+    { id:'c3b', title:'Content keeps pace with campaign calendar', body:'Pipeline output matches distribution demand. No content bottleneck for ABM programs or brand campaigns.', status:'', tag:'', assignee:'', isPlaceholder:true }
+  ],
+
+  'growth-1': [
+    { id:'g1a', title:'5 ABM programs live', body:'Trade & Industrial, Perishables, Bulky & Valuables, Pipeline Accelerator, Territory Accelerator. Cluster-based targeting per Fullfunnel.io framework.', status:'live', tag:'', assignee:'', isPlaceholder:false },
+    { id:'g1b', title:'Airtable ABM backbone', body:'Account movements, engagement tracking, signal capture. Already operational — expand to archive AI outputs with scoring.', status:'live', tag:'tool', assignee:'', isPlaceholder:false },
+    { id:'g1c', title:'ClickUp-first for campaigns', body:'Campaign briefs, tasks, and coordination in ClickUp. Clear ownership and due dates replacing Slack threads.', status:'building', tag:'habit', assignee:'', isPlaceholder:false }
+  ],
+
+  'growth-2': [
+    { id:'g2a', title:'One-brief → cluster variants', body:'One source brief, AI-adapted per account cluster. Instead of manually tailoring for each ABM program, AI generates cluster-specific messaging variants.', status:'planned', tag:'ai', assignee:'', isPlaceholder:false },
+    { id:'g2b', title:'Signal-led campaign triggers', body:'Airtable signals trigger ClickUp workflows automatically. Define signal taxonomy and response playbooks together.', status:'', tag:'', assignee:'', isPlaceholder:true }
+  ],
+
+  'growth-3': [
+    { id:'g3a', title:'Campaign personalisation at scale', body:'Full system: research → content → distribution adapted per cluster from one brief. Campaign strategy, experimentation, and signal analysis replace manual content production.', status:'planned', tag:'ai', assignee:'', isPlaceholder:false }
+    // Note: "Marketing → pipeline attribution" card removed per feedback
+  ],
+
+  'tools-1': [
+    { id:'t1a', title:'ClickUp adoption', body:'ClickUp-first for all tasks and collaboration. Leadership models the behaviour.', status:'building', tag:'', assignee:'', isPlaceholder:false },
+    { id:'t1b', title:'Confluence structured inputs', body:'Research template established. Source-of-truth pages that AI can read from.', status:'building', tag:'', assignee:'', isPlaceholder:false },
+    { id:'t1c', title:'AI tooling evaluation', body:'Define use cases first, evaluate tools together. Budget exists.', status:'planned', tag:'', assignee:'', isPlaceholder:false }
+  ],
+
+  'tools-2': [
+    { id:'t2a', title:'AI tool(s) selected and deployed', body:'Based on Phase 1 use cases. Integrated with Confluence (input), Airtable (output), ClickUp (workflow).', status:'planned', tag:'tool', assignee:'', isPlaceholder:false },
+    { id:'t2b', title:'Training and enablement', body:'Team onboarding to AI workflows. Defined roles: who reviews, who triggers, who QAs.', status:'', tag:'', assignee:'', isPlaceholder:true }
+  ],
+
+  'tools-3': [
+    { id:'t3a', title:'System opens to wider team', body:'Self-serve AI outputs with QA cadence. Established feedback loops improving output quality continuously.', status:'planned', tag:'', assignee:'', isPlaceholder:false },
+    { id:'t3b', title:'Ops review and optimisation', body:"Quarterly review of what's working, what's not. Refine workflows, retire what isn't adding value.", status:'', tag:'', assignee:'', isPlaceholder:true }
+  ],
+
+  'outcomes-1': [
+    { id:'o1a', title:'Clear answer for the business', body:'"How is Marketing using AI?" — first workflow live, visible, measurable.', status:'outcome', tag:'', assignee:'', isPlaceholder:false }
+  ],
+
+  'outcomes-2': [
+    { id:'o2a', title:'Time back for higher-value work', body:'Less reformatting, less starting from scratch. More primary research, creative direction, campaign strategy.', status:'outcome', tag:'', assignee:'', isPlaceholder:false }
+  ],
+
+  'outcomes-3': [
+    { id:'o3a', title:'Better day-to-day for everyone', body:"Less chasing hand-offs, less manual coordination. People doing work they're good at and enjoy.", status:'outcome', tag:'', assignee:'', isPlaceholder:false }
+  ]
+
+}};
+
+// ══════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════
+
+let state = {};
+let editMode = false;
+let dragState = { cardId: null, sourceCellKey: null };
+let editTarget = { cardId: null, cellKey: null, isNew: false };
+
+let ghConfig = {
+  owner: localStorage.getItem('gh-owner') || '',
+  repo:  localStorage.getItem('gh-repo')  || '',
+  pat:   localStorage.getItem('gh-pat')   || '',
+  branch: localStorage.getItem('gh-branch') || 'main'
+};
+
+// ══════════════════════════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════════════════════════
+
+function genId() {
+  return 'c' + Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-4);
+}
+
+function esc(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+function getInitials(name) {
+  if (!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  return (parts[0][0] + (parts[parts.length - 1][0] || '')).toUpperCase();
+}
+
+function getAvatarColor(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+  return AVATAR_COLORS[Math.abs(h) % AVATAR_COLORS.length];
+}
+
+function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
+
+// ══════════════════════════════════════════════════════════════
+// INIT & DATA
+// ══════════════════════════════════════════════════════════════
+
+async function init() {
+  const fromGH = await loadFromGitHub();
+  if (!fromGH) {
+    const fromLocal = loadFromLocalStorage();
+    if (!fromLocal) state = deepClone(DEFAULT_DATA);
+    showSync(fromLocal ? 'Loaded locally (no GitHub configured)' : 'Loaded baseline', 'local');
+  } else {
+    showSync('Loaded from GitHub', 'ok');
+  }
+  render();
+  setupDropZones();
+  updateGhPageUrl();
+}
+
+function loadFromLocalStorage() {
+  try {
+    const s = localStorage.getItem('roadmap-data');
+    if (s) { state = JSON.parse(s); return true; }
+  } catch(e) {}
+  return false;
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem('roadmap-data', JSON.stringify(state));
+}
+
+async function loadFromGitHub() {
+  if (!ghConfig.owner || !ghConfig.repo) return false;
+  try {
+    const headers = ghConfig.pat ? { 'Authorization': 'token ' + ghConfig.pat } : {};
+    const r = await fetch(
+      `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/data.json`,
+      { headers }
+    );
+    if (!r.ok) return false;
+    const f = await r.json();
+    state = JSON.parse(decodeURIComponent(escape(atob(f.content.replace(/\n/g,'')))));
+    return true;
+  } catch(e) {
+    console.warn('GitHub load error:', e);
+    return false;
+  }
+}
+
+async function saveToGitHub() {
+  if (!ghConfig.owner || !ghConfig.repo || !ghConfig.pat) {
+    showSync('Open ⚙ Settings to configure GitHub first', 'error');
+    document.getElementById('settingsPanel').style.display = 'block';
+    return;
+  }
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = '…';
+  showSync('Saving to GitHub…', 'saving');
+
+  try {
+    // Get current SHA (needed for update)
+    const getHeaders = { 'Authorization': 'token ' + ghConfig.pat };
+    const getRes = await fetch(
+      `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/data.json`,
+      { headers: getHeaders }
+    );
+    let sha;
+    if (getRes.ok) { sha = (await getRes.json()).sha; }
+
+    const json = JSON.stringify(state, null, 2);
+    const content = btoa(unescape(encodeURIComponent(json)));
+    const body = {
+      message: 'Update roadmap – ' + new Date().toISOString(),
+      content,
+      branch: ghConfig.branch || 'main'
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(
+      `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/data.json`,
+      {
+        method: 'PUT',
+        headers: { ...getHeaders, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      }
+    );
+    if (!putRes.ok) {
+      const e = await putRes.json().catch(() => ({}));
+      throw new Error(e.message || putRes.statusText);
+    }
+    const ts = new Date().toLocaleTimeString('en-AU', { hour:'2-digit', minute:'2-digit' });
+    showSync('Saved to GitHub – ' + ts, 'ok');
+  } catch(e) {
+    showSync('Save failed: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '💾 Save';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════════════════════
+
+function render() {
+  CELL_KEYS.forEach(key => {
+    const cellEl = document.getElementById('cell-' + key);
+    if (!cellEl) return;
+    cellEl.innerHTML = '';
+    (state.cells[key] || []).forEach(card => cellEl.appendChild(mkCard(card, key)));
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-card-btn';
+    addBtn.textContent = '+ Add card';
+    addBtn.addEventListener('click', () => addCard(key));
+    cellEl.appendChild(addBtn);
+  });
+}
+
+function mkCard(card, cellKey) {
+  const el = document.createElement('div');
+  el.className = 'card' + (card.isPlaceholder ? ' placeholder' : '');
+  el.dataset.id = card.id;
+  el.dataset.cell = cellKey;
+
+  if (card.status === 'outcome') el.style.borderLeft = '3px solid #283593';
+
+  // Status dot
+  const dot = (card.status && card.status !== 'outcome')
+    ? `<span class="status ${esc(card.status)}"></span>` : '';
+
+  // Tag
+  const tagHtml = card.tag
+    ? `<span class="card-tag tag-${esc(card.tag)}">${esc(TAG_LABELS[card.tag] || card.tag)}</span>` : '';
+
+  // Assignee
+  let assigneeHtml = '';
+  if (card.assignee) {
+    const color = getAvatarColor(card.assignee);
+    const initials = getInitials(card.assignee);
+    assigneeHtml = `<div class="card-assignee">
+      <div class="assignee-avatar" style="background:${color}" title="${esc(card.assignee)}">${initials}</div>
+      <span>${esc(card.assignee)}</span>
+    </div>`;
+  }
+
+  el.innerHTML = `
+    <div class="card-actions">
+      <button class="card-action-btn card-edit-btn" title="Edit card">✎</button>
+      <button class="card-action-btn card-delete-btn" title="Delete card">×</button>
+    </div>
+    <div class="card-title">${dot}${esc(card.title)}</div>
+    ${card.body ? `<div class="card-body">${esc(card.body)}</div>` : ''}
+    ${tagHtml}
+    ${assigneeHtml}
+  `;
+
+  el.querySelector('.card-edit-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    openEditModal(card.id, cellKey);
+  });
+  el.querySelector('.card-delete-btn').addEventListener('click', e => {
+    e.stopPropagation();
+    deleteCard(card.id, cellKey);
+  });
+
+  el.addEventListener('dragstart', e => {
+    if (!editMode) { e.preventDefault(); return; }
+    dragState = { cardId: card.id, sourceCellKey: cellKey };
+    e.dataTransfer.effectAllowed = 'move';
+    setTimeout(() => el.classList.add('dragging'), 0);
+  });
+  el.addEventListener('dragend', () => el.classList.remove('dragging'));
+
+  el.addEventListener('dblclick', () => {
+    if (editMode) openEditModal(card.id, cellKey);
+  });
+
+  return el;
+}
+
+// ══════════════════════════════════════════════════════════════
+// DRAG AND DROP
+// ══════════════════════════════════════════════════════════════
+
+function setupDropZones() {
+  document.querySelectorAll('.cell[id]').forEach(cellEl => {
+    const key = cellEl.id.replace('cell-', '');
+    cellEl.addEventListener('dragover', e => {
+      if (!editMode) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      cellEl.classList.add('drag-over');
+    });
+    cellEl.addEventListener('dragleave', e => {
+      if (!cellEl.contains(e.relatedTarget)) cellEl.classList.remove('drag-over');
+    });
+    cellEl.addEventListener('drop', e => {
+      e.preventDefault();
+      cellEl.classList.remove('drag-over');
+      if (!dragState.cardId) return;
+      const { cardId, sourceCellKey } = dragState;
+
+      const srcCards = state.cells[sourceCellKey] || [];
+      const idx = srcCards.findIndex(c => c.id === cardId);
+      if (idx === -1) return;
+      const [card] = srcCards.splice(idx, 1);
+
+      const dstCards = state.cells[key] || [];
+      state.cells[key] = dstCards;
+
+      const afterEl = getDropAfterElement(cellEl, e.clientY);
+      if (afterEl) {
+        const afterIdx = dstCards.findIndex(c => c.id === afterEl.dataset.id);
+        dstCards.splice(afterIdx !== -1 ? afterIdx : dstCards.length, 0, card);
+      } else {
+        dstCards.push(card);
+      }
+
+      dragState = { cardId: null, sourceCellKey: null };
+      render();
+      saveToLocalStorage();
+    });
+  });
+}
+
+function getDropAfterElement(container, y) {
+  const cards = [...container.querySelectorAll('.card:not(.dragging)')];
+  let closest = null, closestOffset = -Infinity;
+  for (const c of cards) {
+    const { top, height } = c.getBoundingClientRect();
+    const offset = y - top - height / 2;
+    if (offset < 0 && offset > closestOffset) { closestOffset = offset; closest = c; }
+  }
+  return closest;
+}
+
+// ══════════════════════════════════════════════════════════════
+// EDIT MODE
+// ══════════════════════════════════════════════════════════════
+
+function toggleEditMode() {
+  editMode = !editMode;
+  document.body.classList.toggle('edit-mode', editMode);
+  const btn = document.getElementById('editToggleBtn');
+  btn.textContent = editMode ? '✓ Editing' : '✏️ Edit';
+  btn.classList.toggle('active', editMode);
+  document.querySelectorAll('.card').forEach(c => c.setAttribute('draggable', editMode));
+}
+
+// ══════════════════════════════════════════════════════════════
+// CARD CRUD
+// ══════════════════════════════════════════════════════════════
+
+function addCard(cellKey) {
+  editTarget = { cardId: null, cellKey, isNew: true };
+  populateModal({ id: genId(), title: '', body: '', status: 'planned', tag: '', assignee: '', isPlaceholder: false });
+}
+
+function openEditModal(cardId, cellKey) {
+  const card = (state.cells[cellKey] || []).find(c => c.id === cardId);
+  if (!card) return;
+  editTarget = { cardId, cellKey, isNew: false };
+  populateModal(card);
+}
+
+function populateModal(card) {
+  document.getElementById('editModalHeading').textContent = editTarget.isNew ? 'Add card' : 'Edit card';
+  document.getElementById('editTitle').value = card.title;
+  document.getElementById('editBody').value = card.body || '';
+  const statusVal = (card.status === 'outcome') ? '' : (card.status || '');
+  const radio = document.querySelector(`input[name="editStatus"][value="${statusVal}"]`);
+  if (radio) radio.checked = true;
+  else document.querySelector('input[name="editStatus"][value=""]').checked = true;
+  document.getElementById('editTag').value = card.tag || '';
+  document.getElementById('editAssignee').value = card.assignee || '';
+  document.getElementById('editPlaceholder').checked = !!card.isPlaceholder;
+  document.getElementById('editModal').style.display = 'flex';
+  document.getElementById('editTitle').focus();
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+function saveCardFromModal() {
+  const title = document.getElementById('editTitle').value.trim();
+  const isPlaceholder = document.getElementById('editPlaceholder').checked;
+  if (!title && !isPlaceholder) {
+    document.getElementById('editTitle').focus();
+    return;
+  }
+
+  // Detect if outcomes cell to preserve special status
+  const isOutcomes = editTarget.cellKey && editTarget.cellKey.startsWith('outcomes');
+  const statusRadio = document.querySelector('input[name="editStatus"]:checked');
+  let status = statusRadio ? statusRadio.value : 'planned';
+  if (isOutcomes) status = 'outcome';
+
+  const updated = {
+    id: editTarget.cardId || genId(),
+    title,
+    body: document.getElementById('editBody').value.trim(),
+    status,
+    tag: document.getElementById('editTag').value,
+    assignee: document.getElementById('editAssignee').value,
+    isPlaceholder
+  };
+
+  const cards = state.cells[editTarget.cellKey] || [];
+  state.cells[editTarget.cellKey] = cards;
+
+  if (editTarget.isNew) {
+    cards.push(updated);
+  } else {
+    const idx = cards.findIndex(c => c.id === editTarget.cardId);
+    if (idx !== -1) cards[idx] = updated;
+    else cards.push(updated);
+  }
+
+  closeEditModal();
+  render();
+  saveToLocalStorage();
+}
+
+function deleteCard(cardId, cellKey) {
+  const card = (state.cells[cellKey] || []).find(c => c.id === cardId);
+  if (!card || !confirm(`Delete "${card.title || 'this card'}"?`)) return;
+  state.cells[cellKey] = (state.cells[cellKey] || []).filter(c => c.id !== cardId);
+  render();
+  saveToLocalStorage();
+}
+
+// ══════════════════════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════════════════════
+
+function toggleSettings() {
+  const panel = document.getElementById('settingsPanel');
+  const open = panel.style.display !== 'none';
+  if (!open) {
+    document.getElementById('ghOwner').value = ghConfig.owner;
+    document.getElementById('ghRepo').value  = ghConfig.repo;
+    document.getElementById('ghPat').value   = ghConfig.pat;
+    document.getElementById('ghBranch').value = ghConfig.branch || 'main';
+    updateGhPageUrl();
+  }
+  panel.style.display = open ? 'none' : 'block';
+}
+
+function saveSettings() {
+  ghConfig.owner  = document.getElementById('ghOwner').value.trim();
+  ghConfig.repo   = document.getElementById('ghRepo').value.trim();
+  ghConfig.pat    = document.getElementById('ghPat').value.trim();
+  ghConfig.branch = document.getElementById('ghBranch').value.trim() || 'main';
+  localStorage.setItem('gh-owner',  ghConfig.owner);
+  localStorage.setItem('gh-repo',   ghConfig.repo);
+  localStorage.setItem('gh-pat',    ghConfig.pat);
+  localStorage.setItem('gh-branch', ghConfig.branch);
+  updateGhPageUrl();
+  document.getElementById('settingsPanel').style.display = 'none';
+  showSync('Settings saved', 'ok');
+}
+
+function updateGhPageUrl() {
+  const el = document.getElementById('ghPageUrl');
+  if (ghConfig.owner && ghConfig.repo) {
+    const url = `https://${ghConfig.owner}.github.io/${ghConfig.repo}/`;
+    el.innerHTML = `GitHub Pages URL: <a href="${url}" target="_blank">${url}</a>`;
+  } else {
+    el.textContent = 'GitHub Pages URL: configure above to see your URL';
+  }
+}
+
+function resetToDefault() {
+  if (!confirm('Reset all cards to the original baseline? All changes (including unsaved GitHub edits) will be lost.')) return;
+  state = deepClone(DEFAULT_DATA);
+  render();
+  saveToLocalStorage();
+  document.getElementById('settingsPanel').style.display = 'none';
+  showSync('Reset to original baseline', 'ok');
+}
+
+// ══════════════════════════════════════════════════════════════
+// SYNC STATUS
+// ══════════════════════════════════════════════════════════════
+
+function showSync(msg, type) {
+  const el = document.getElementById('syncStatus');
+  el.textContent = msg;
+  el.className = 'sync-status sync-' + type;
+  if (type === 'ok' || type === 'local') {
+    setTimeout(() => { if (el.textContent === msg) { el.textContent = ''; el.className = 'sync-status'; } }, 4000);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// CLICKUP EXPORT
+// ══════════════════════════════════════════════════════════════
+
+function openClickUpModal() {
+  buildCopyText();
+  document.getElementById('clickupModal').style.display = 'flex';
+  showCuTab('copy');
+}
+
+function closeClickUpModal() {
+  document.getElementById('clickupModal').style.display = 'none';
+}
+
+function showCuTab(name) {
+  document.getElementById('cuTabCopy').style.display = name === 'copy' ? 'block' : 'none';
+  document.getElementById('cuTabApi').style.display  = name === 'api'  ? 'block' : 'none';
+  document.getElementById('cuTabCopyBtn').classList.toggle('active', name === 'copy');
+  document.getElementById('cuTabApiBtn').classList.toggle('active',  name === 'api');
+}
+
+function buildCopyText() {
+  const lines = [];
+  const layers = ['pmm','content','growth','tools','outcomes'];
+  [1,2,3].forEach(phase => {
+    layers.forEach(layer => {
+      const key = layer + '-' + phase;
+      const cards = state.cells[key] || [];
+      if (!cards.length) return;
+      lines.push(`\n[${PHASE_NAMES[phase]} / ${LAYER_NAMES[layer]}]`);
+      cards.forEach(card => {
+        const statusLabel = card.isPlaceholder ? 'Placeholder'
+          : card.status === 'outcome' ? ''
+          : card.status ? (card.status[0].toUpperCase() + card.status.slice(1)) : '—';
+        const assignee = card.assignee || 'Unassigned';
+        lines.push(`• ${card.title}${statusLabel ? ' [' + statusLabel + ']' : ''} — ${assignee}`);
+        if (card.body) lines.push(`  ${card.body}`);
+      });
+    });
+  });
+  document.getElementById('cuCopyText').value = lines.join('\n').replace(/^\n/, '');
+}
+
+function copyCuText() {
+  const ta = document.getElementById('cuCopyText');
+  ta.select();
+  const btn = document.getElementById('cuCopyBtn');
+  navigator.clipboard.writeText(ta.value).then(() => {
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 2000);
+  }).catch(() => {
+    document.execCommand('copy');
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 2000);
+  });
+}
+
+async function pushToClickUp() {
+  const token  = document.getElementById('cuToken').value.trim();
+  const listId = document.getElementById('cuListId').value.trim();
+  if (!token || !listId) {
+    alert('Please enter your ClickUp API token and List ID.');
+    return;
+  }
+
+  const log = document.getElementById('cuLog');
+  log.style.display = 'block';
+  log.innerHTML = '<div style="color:var(--muted)">Pushing tasks…</div>';
+  const pushBtn = document.getElementById('cuPushBtn');
+  pushBtn.disabled = true;
+
+  let ok = 0, fail = 0;
+  const layers = ['pmm','content','growth','tools','outcomes'];
+
+  for (const phase of [1,2,3]) {
+    for (const layer of layers) {
+      const key = layer + '-' + phase;
+      for (const card of (state.cells[key] || [])) {
+        const desc = [
+          card.body || '',
+          `\nLayer: ${LAYER_NAMES[layer]}`,
+          `Phase: ${PHASE_NAMES[phase]}`,
+          card.assignee ? `Assignee: ${card.assignee}` : '',
+          card.isPlaceholder ? '⏳ Placeholder — to be defined' : ''
+        ].filter(Boolean).join('\n');
+
+        try {
+          const r = await fetch(`https://api.clickup.com/api/v2/list/${listId}/task`, {
+            method: 'POST',
+            headers: { 'Authorization': token, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: card.title, description: desc })
+          });
+          if (r.ok) {
+            const t = await r.json();
+            log.innerHTML += `<div>✅ <a href="${esc(t.url)}" target="_blank">${esc(card.title)}</a></div>`;
+            ok++;
+          } else {
+            const e = await r.json().catch(() => ({}));
+            throw new Error(e.err || e.ECODE || r.statusText);
+          }
+        } catch(e) {
+          log.innerHTML += `<div style="color:#C62828">❌ ${esc(card.title)}: ${esc(e.message)}</div>`;
+          fail++;
+        }
+        log.scrollTop = log.scrollHeight;
+      }
+    }
+  }
+
+  log.innerHTML += `<div style="margin-top:10px;font-weight:700;border-top:1px solid var(--border);padding-top:8px">Done — ${ok} task${ok!==1?'s':''} created${fail ? ', ' + fail + ' failed' : ''}.</div>`;
+  pushBtn.disabled = false;
+}
+
+// ══════════════════════════════════════════════════════════════
+// BOOT
+// ══════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Modal: close on backdrop click
+  document.getElementById('editModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeEditModal();
+  });
+  document.getElementById('clickupModal').addEventListener('click', e => {
+    if (e.target === e.currentTarget) closeClickUpModal();
+  });
+
+  // Edit form submit
+  document.getElementById('editForm').addEventListener('submit', e => {
+    e.preventDefault();
+    saveCardFromModal();
+  });
+
+  // Settings: close on outside click
+  document.addEventListener('click', e => {
+    const panel = document.getElementById('settingsPanel');
+    const btn = document.getElementById('settingsBtn');
+    if (panel.style.display !== 'none' && !panel.contains(e.target) && !btn.contains(e.target)) {
+      panel.style.display = 'none';
+    }
+  });
+
+  init();
+});
+</script>
+</body>
+</html>

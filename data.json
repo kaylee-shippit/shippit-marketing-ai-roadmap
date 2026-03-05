@@ -1,0 +1,65 @@
+{
+  "cells": {
+    "pmm-1": [
+      { "id": "p1a", "title": "Structured Confluence template", "body": "Consistent research template for positioning, competitive intel, and messaging. Structured so AI can parse it.", "status": "building", "tag": "habit", "assignee": "", "isPlaceholder": false },
+      { "id": "p1b", "title": "First AI workflow: sales enablement", "body": "AI extracts structured data → generates first-draft battle cards, one-pagers, objection handlers. PMM reviews all output.", "status": "building", "tag": "ai", "assignee": "", "isPlaceholder": false },
+      { "id": "p1c", "title": "Delivered interviews (ongoing)", "body": "Primary research engine. Customer and prospect interviews feeding the whole system.", "status": "live", "tag": "", "assignee": "", "isPlaceholder": false },
+      { "id": "p1d", "title": "Competitor analysis via Claude Code", "body": "Use competitor analysis as the vehicle to learn Claude Code. Scheduled tasks make it a natural fit for recurring monitoring — a living example of Phase 1 AI habits in action.", "status": "building", "tag": "ai", "assignee": "Sofia Nilsson Burston", "isPlaceholder": false }
+    ],
+    "pmm-2": [
+      { "id": "p2a", "title": "Airtable output archive + scoring", "body": "AI-generated enablement archived with metadata. PMM scores quarterly — scoring feeds back to improve AI output quality.", "status": "planned", "tag": "tool", "assignee": "", "isPlaceholder": false },
+      { "id": "p2b", "title": "Expanded research inputs", "body": "Broader inputs beyond Delivered: analyst reports, market data, competitor monitoring. Shape after Shauna alignment.", "status": "", "tag": "", "assignee": "", "isPlaceholder": true }
+    ],
+    "pmm-3": [
+      { "id": "p3a", "title": "Human-in-the-loop → QA cadence", "body": "After 2 quarters of PMM reviewing all outputs, shift to sampling-based QA. System opens to wider team for self-serve enablement.", "status": "planned", "tag": "ai", "assignee": "", "isPlaceholder": false },
+      { "id": "p3b", "title": "Automated research → enablement flow", "body": "Research outputs feed enablement, content, and distribution automatically. Define triggers and quality gates together.", "status": "", "tag": "", "assignee": "", "isPlaceholder": true }
+    ],
+    "content-1": [
+      { "id": "c1a", "title": "Content workflow into ClickUp", "body": "All content requests, briefs, and production tracked in ClickUp with clear ownership and due dates. Replaces Slack-based coordination.", "status": "building", "tag": "habit", "assignee": "", "isPlaceholder": false },
+      { "id": "c1b", "title": "Content audit & gap analysis", "body": "Map existing assets to buyer journey stages and ABM programs. Identify gaps by format and persona.", "status": "", "tag": "", "assignee": "Tom Hayward", "isPlaceholder": true },
+      { "id": "c1c", "title": "Delivered / beehiiv pilot", "body": "Tom leads beehiiv setup as a deliberate hands-on automation pilot — getting direct experience without relying on Kaylee. Long-term Customer.io migration stays on the horizon.", "status": "building", "tag": "habit", "assignee": "Tom Hayward", "isPlaceholder": false }
+    ],
+    "content-2": [
+      { "id": "c2a", "title": "AI content pipeline (always-on)", "body": "AI agents take primary research (Delivered transcripts, positioning docs) and continuously generate: briefs, headlines, social angles, email concepts, video scripts. Content team reviews, selects, operationalises.", "status": "planned", "tag": "ai", "assignee": "", "isPlaceholder": false },
+      { "id": "c2b", "title": "Broader format coverage", "body": "Expand from blog + social into video, infographics, on-site content, customer stories. AI handles first drafts across formats.", "status": "planned", "tag": "", "assignee": "", "isPlaceholder": false }
+    ],
+    "content-3": [
+      { "id": "c3a", "title": "1 interview → 5+ assets", "body": "One Delivered interview or research input automatically generates content across multiple formats and channels. Content team curates, not creates from scratch.", "status": "planned", "tag": "metric", "assignee": "", "isPlaceholder": false },
+      { "id": "c3b", "title": "Content keeps pace with campaign calendar", "body": "Pipeline output matches distribution demand. No content bottleneck for ABM programs or brand campaigns.", "status": "", "tag": "", "assignee": "", "isPlaceholder": true }
+    ],
+    "growth-1": [
+      { "id": "g1a", "title": "5 ABM programs live", "body": "Trade & Industrial, Perishables, Bulky & Valuables, Pipeline Accelerator, Territory Accelerator. Cluster-based targeting per Fullfunnel.io framework.", "status": "live", "tag": "", "assignee": "", "isPlaceholder": false },
+      { "id": "g1b", "title": "Airtable ABM backbone", "body": "Account movements, engagement tracking, signal capture. Already operational — expand to archive AI outputs with scoring.", "status": "live", "tag": "tool", "assignee": "", "isPlaceholder": false },
+      { "id": "g1c", "title": "ClickUp-first for campaigns", "body": "Campaign briefs, tasks, and coordination in ClickUp. Clear ownership and due dates replacing Slack threads.", "status": "building", "tag": "habit", "assignee": "", "isPlaceholder": false }
+    ],
+    "growth-2": [
+      { "id": "g2a", "title": "One-brief → cluster variants", "body": "One source brief, AI-adapted per account cluster. Instead of manually tailoring for each ABM program, AI generates cluster-specific messaging variants.", "status": "planned", "tag": "ai", "assignee": "", "isPlaceholder": false },
+      { "id": "g2b", "title": "Signal-led campaign triggers", "body": "Airtable signals trigger ClickUp workflows automatically. Define signal taxonomy and response playbooks together.", "status": "", "tag": "", "assignee": "", "isPlaceholder": true }
+    ],
+    "growth-3": [
+      { "id": "g3a", "title": "Campaign personalisation at scale", "body": "Full system: research → content → distribution adapted per cluster from one brief. Campaign strategy, experimentation, and signal analysis replace manual content production.", "status": "planned", "tag": "ai", "assignee": "", "isPlaceholder": false }
+    ],
+    "tools-1": [
+      { "id": "t1a", "title": "ClickUp adoption", "body": "ClickUp-first for all tasks and collaboration. Leadership models the behaviour.", "status": "building", "tag": "", "assignee": "", "isPlaceholder": false },
+      { "id": "t1b", "title": "Confluence structured inputs", "body": "Research template established. Source-of-truth pages that AI can read from.", "status": "building", "tag": "", "assignee": "", "isPlaceholder": false },
+      { "id": "t1c", "title": "AI tooling evaluation", "body": "Define use cases first, evaluate tools together. Budget exists.", "status": "planned", "tag": "", "assignee": "", "isPlaceholder": false }
+    ],
+    "tools-2": [
+      { "id": "t2a", "title": "AI tool(s) selected and deployed", "body": "Based on Phase 1 use cases. Integrated with Confluence (input), Airtable (output), ClickUp (workflow).", "status": "planned", "tag": "tool", "assignee": "", "isPlaceholder": false },
+      { "id": "t2b", "title": "Training and enablement", "body": "Team onboarding to AI workflows. Defined roles: who reviews, who triggers, who QAs.", "status": "", "tag": "", "assignee": "", "isPlaceholder": true }
+    ],
+    "tools-3": [
+      { "id": "t3a", "title": "System opens to wider team", "body": "Self-serve AI outputs with QA cadence. Established feedback loops improving output quality continuously.", "status": "planned", "tag": "", "assignee": "", "isPlaceholder": false },
+      { "id": "t3b", "title": "Ops review and optimisation", "body": "Quarterly review of what's working, what's not. Refine workflows, retire what isn't adding value.", "status": "", "tag": "", "assignee": "", "isPlaceholder": true }
+    ],
+    "outcomes-1": [
+      { "id": "o1a", "title": "Clear answer for the business", "body": "\"How is Marketing using AI?\" — first workflow live, visible, measurable.", "status": "outcome", "tag": "", "assignee": "", "isPlaceholder": false }
+    ],
+    "outcomes-2": [
+      { "id": "o2a", "title": "Time back for higher-value work", "body": "Less reformatting, less starting from scratch. More primary research, creative direction, campaign strategy.", "status": "outcome", "tag": "", "assignee": "", "isPlaceholder": false }
+    ],
+    "outcomes-3": [
+      { "id": "o3a", "title": "Better day-to-day for everyone", "body": "Less chasing hand-offs, less manual coordination. People doing work they're good at and enjoy.", "status": "outcome", "tag": "", "assignee": "", "isPlaceholder": false }
+    ]
+  }
+}
