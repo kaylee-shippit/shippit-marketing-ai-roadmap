@@ -369,9 +369,56 @@
   .cu-textarea { width: 100%; height: 280px; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; font-family: 'SFMono-Regular', Consolas, monospace; resize: none; color: var(--body); background: var(--bg); line-height: 1.7; }
   .cu-log { min-height: 80px; max-height: 220px; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; font-size: 12px; line-height: 1.7; }
   .cu-log a { color: var(--purple); }
+
+  /* ── AUTH GATE ── */
+  #authGate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+  }
+  .auth-box {
+    background: var(--white); border-radius: 16px;
+    padding: 40px 48px; width: 380px;
+    box-shadow: 0 8px 40px rgba(99,34,229,0.15);
+    text-align: center;
+  }
+  .auth-logo { font-size: 32px; margin-bottom: 8px; }
+  .auth-box h2 { font-size: 20px; font-weight: 700; color: var(--purple); margin-bottom: 4px; }
+  .auth-box p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .auth-input {
+    width: 100%; padding: 11px 14px; border: 1.5px solid var(--border);
+    border-radius: 8px; font-size: 15px; margin-bottom: 12px;
+    outline: none; transition: border-color 0.15s;
+    font-family: inherit; letter-spacing: 0.05em;
+  }
+  .auth-input:focus { border-color: var(--purple); }
+  .auth-btn {
+    width: 100%; padding: 12px; background: var(--purple); color: var(--white);
+    border: none; border-radius: 8px; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: opacity 0.15s; font-family: inherit;
+  }
+  .auth-btn:hover { opacity: 0.88; }
+  .auth-error {
+    font-size: 13px; color: #c0392b; margin-top: 10px;
+    min-height: 18px; display: none;
+  }
 </style>
 </head>
 <body>
+
+<!-- ══════════ AUTH GATE ══════════ -->
+<div id="authGate">
+  <div class="auth-box">
+    <div class="auth-logo">🚀</div>
+    <h2>AI Evolution Roadmap</h2>
+    <p>Shippit Marketing · Internal use only</p>
+    <input type="password" id="authInput" class="auth-input" placeholder="Enter team password"
+      onkeydown="if(event.key==='Enter')checkAuth()">
+    <button class="auth-btn" onclick="checkAuth()">Access Roadmap</button>
+    <div class="auth-error" id="authError">Incorrect password — check with Kaylee</div>
+  </div>
+</div>
 
 <!-- ══════════ HEADER ══════════ -->
 <div class="header">
@@ -1227,10 +1274,46 @@ async function pushToClickUp() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// BOOT
+// AUTH GATE
+// To change the password: replace GATE_PASS below and push to GitHub.
+// Note: the password hash is stored in sessionStorage (not the plaintext).
 // ══════════════════════════════════════════════════════════════
 
+const GATE_PASS = 'Shippit2026';  // ← change this to update the password
+let _gateHash = '';
+
+async function _sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function initGate() {
+  _gateHash = await _sha256(GATE_PASS);
+  const stored = sessionStorage.getItem('roadmap-auth');
+  if (stored === _gateHash) {
+    document.getElementById('authGate').style.display = 'none';
+  }
+  // else gate stays visible
+}
+
+async function checkAuth() {
+  const input = document.getElementById('authInput').value;
+  const inputHash = await _sha256(input);
+  if (inputHash === _gateHash) {
+    sessionStorage.setItem('roadmap-auth', _gateHash);
+    document.getElementById('authGate').style.display = 'none';
+    document.getElementById('authInput').value = '';
+  } else {
+    const err = document.getElementById('authError');
+    err.style.display = 'block';
+    document.getElementById('authInput').value = '';
+    document.getElementById('authInput').focus();
+    setTimeout(() => { err.style.display = 'none'; }, 3000);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initGate();
   document.getElementById('editModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
   document.getElementById('clickupModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeClickUpModal(); });
   document.getElementById('editForm').addEventListener('submit', e => { e.preventDefault(); saveCardFromModal(); });
