@@ -311,6 +311,28 @@
   }
   .endgame-stat strong { color: var(--dark); }
 
+  /* ── FLOATING EDIT BUTTON ── */
+  .fab-edit {
+    position: fixed; bottom: 28px; right: 28px; z-index: 500;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--purple); color: white; border: none;
+    font-size: 20px; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(99,34,229,0.35);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    font-family: inherit;
+  }
+  .fab-edit:hover { background: #4e1ab8; transform: scale(1.08); box-shadow: 0 6px 20px rgba(99,34,229,0.45); }
+  .fab-edit.active { background: #2E7D32; box-shadow: 0 4px 16px rgba(46,125,50,0.4); }
+  .fab-edit-label {
+    position: fixed; bottom: 88px; right: 24px; z-index: 500;
+    background: var(--dark); color: white; font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 6px; white-space: nowrap;
+    pointer-events: none; opacity: 0; transition: opacity 0.15s;
+  }
+  .fab-edit:hover ~ .fab-edit-label,
+  .fab-edit.active ~ .fab-edit-label { opacity: 1; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 1100px) { .roadmap-grid { grid-template-columns: 120px 1fr 1fr 1fr; } .endgame-layers { grid-template-columns: 1fr; } .layer-connector { display: none; } }
   @media (max-width: 768px)  { .roadmap-grid { grid-template-columns: 100px 1fr; } .form-row { grid-template-columns: 1fr; } }
@@ -567,30 +589,28 @@
       </div>
       <div class="layer-today">
         <div class="layer-section-label">Today's bottleneck</div>
-        Research lives in Confluence decks and slide decks. Turning positioning into battle cards, one-pagers, or objection handlers is a manual, multi-person effort every time. Rich formats — but AI can't read them.
+        Research lives in Confluence decks and slides. Turning positioning into battle cards, one-pagers, or objection handlers is a manual, multi-person effort every time — and every piece has to go back through PMM to stay accurate.
       </div>
       <div class="layer-workflow">
-        <div class="layer-section-label">With AI: Sales Enablement on demand</div>
+        <div class="layer-section-label">With AI: Self-serve enablement, always fresh</div>
         <div class="mini-flow">
           <div class="mini-node">Structured Confluence template</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node ai">Claude extracts &amp; drafts</div>
+          <div class="mini-node">Airtable structured data layer</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node">Gamma generates final assets</div>
-          <div class="mini-arrow">→</div>
-          <div class="mini-node">Airtable archives + scores</div>
+          <div class="mini-node ai">Gamma + gen AI generate assets</div>
         </div>
-        <div class="layer-subtext">Sofia and Kaylee co-build this workflow first. PMM reviews and scores output quarterly — that scoring feeds back to improve the system. Human-in-the-loop for at least the first two quarters before wider deployment.</div>
+        <div class="layer-subtext">Airtable sits between Confluence and generation — it's the structured, queryable data source that gives Gamma (and other tools) clean inputs for decks, PDFs, imagery, and slides. The same Airtable records hold QA scores; PMM reviews and scores quarterly until the system can self-assess. <strong>Endgame:</strong> anyone in the business generates their own collateral on demand — PMM stops being a bottleneck for every asset, and content stays fresh because a new version is a button press away.</div>
       </div>
       <div class="layer-tools">
         <span class="tool-pill confirmed">Confluence ✓</span>
-        <span class="tool-pill confirmed">Claude Code ✓</span>
         <span class="tool-pill confirmed">Airtable ✓</span>
+        <span class="tool-pill confirmed">Claude Code ✓</span>
         <span class="tool-pill evaluating">Gamma — evaluating Apr</span>
       </div>
       <div class="layer-payoff">
         <div class="layer-section-label">What you get back</div>
-        Time for primary research and customer interviews — the work only humans can do.
+        Time for primary research and customer interviews. PMM freed from producing individual assets — focus shifts to maintaining the source of truth that powers everything else.
       </div>
     </div>
 
@@ -607,27 +627,32 @@
       </div>
       <div class="layer-today">
         <div class="layer-section-label">Today's bottleneck</div>
-        Every asset starts from a blank page. One Delivered interview or piece of research exists — but turning it into a blog post, email, or social series is a separate manual process each time.
+        Every asset starts from a blank page. Others in the business brief Tom and Lana ad hoc — no single place to see what's needed, what's in flight, or what the opportunity is. One interview = one output, manually, each time.
       </div>
       <div class="layer-workflow">
         <div class="layer-section-label">With AI: Always-on content pipeline</div>
         <div class="mini-flow">
-          <div class="mini-node">Research inputs (Delivered, PMM, interviews)</div>
+          <div class="mini-node">AI research (keywords, trends, news)</div>
+          <div class="mini-arrow">+</div>
+          <div class="mini-node">Sofia &amp; Kathy's primary research</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node ai">AI generates content pipeline</div>
+          <div class="mini-node ai">Generates content pipeline</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node">Tom &amp; Lana curate + direct</div>
+          <div class="mini-node">Tom &amp; Lana curate</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node">✓ → ClickUp task, auto-created</div>
         </div>
-        <div class="layer-subtext">Briefs, headlines, email concepts, social angles, video scripts — always in the queue. Tom and Lana start from a curated pipeline, not a blank page. Lana's AI tool evaluation feeds directly into the May build.</div>
+        <div class="layer-subtext">The pipeline is a live, always-on list of blog ideas, Delivered angles, and Knowledge Base articles — surfaced from both AI-monitored signals and primary research. Tom and Lana have one place to review opportunities. When something is approved, it creates a ClickUp task automatically — no manual briefing, no Slack hand-off. The pipeline replaces the inbox.</div>
       </div>
       <div class="layer-tools">
         <span class="tool-pill confirmed">Claude Code ✓</span>
         <span class="tool-pill confirmed">beehiiv ✓</span>
+        <span class="tool-pill confirmed">ClickUp ✓</span>
         <span class="tool-pill evaluating">Content AI tool — evaluating Apr</span>
       </div>
       <div class="layer-payoff">
         <div class="layer-section-label">What you get back</div>
-        Editorial judgment and brand voice across more formats — instead of time on first drafts and manual repurposing.
+        Editorial judgment and brand voice across more formats. No more fielding ad hoc briefs — Tom and Lana decide what gets made, from a pipeline they trust.
       </div>
     </div>
 
@@ -639,35 +664,35 @@
         <div class="layer-icon">📡</div>
         <div>
           <div class="layer-name">Distribution Engine</div>
-          <div class="layer-dri">DRI: Kaylee Liu</div>
+          <div class="layer-dri">Kaylee · Christina · DRI: Kaylee Liu</div>
         </div>
       </div>
       <div class="layer-today">
         <div class="layer-section-label">Today's bottleneck</div>
-        Campaign copy written ad hoc or adapted manually per account cluster. Coordination happens through Slack threads with no clear ownership trail from brief to go-live.
+        Campaign briefs written from scratch each time. Messaging adapted manually per cluster. Tasks created manually in ClickUp. Goals set informally. No clear link from campaign to OKR — and no automated trail from brief to go-live.
       </div>
       <div class="layer-workflow">
-        <div class="layer-section-label">With AI: Brief once, launch everywhere</div>
+        <div class="layer-section-label">With AI: From inputs to execution automatically</div>
         <div class="mini-flow">
-          <div class="mini-node">One source brief</div>
+          <div class="mini-node">PMM positioning + Content pipeline</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node ai">AI generates cluster variants</div>
+          <div class="mini-node ai">AI drafts campaign plan + channel variants</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node">Kaylee reviews + approves</div>
+          <div class="mini-node">Kaylee QA + approves</div>
           <div class="mini-arrow">→</div>
-          <div class="mini-node">ClickUp tracks to launch</div>
+          <div class="mini-node">System auto-creates ClickUp tasks + assigns metrics from OKRs</div>
         </div>
-        <div class="layer-subtext">Structured ClickUp workflows replace Slack threads. Clear ownership and due dates from brief to go-live. Airtable tracks pipeline influence — so we can answer "what did this campaign do?" with data.</div>
+        <div class="layer-subtext">The brief is generated from PMM and Content inputs — not from scratch. Once approved, the system creates ClickUp tasks with the right deadlines, assigns owners, and defines success metrics directly from the team's OKRs. <strong>Stretch goal:</strong> campaign targeting maps to the sales territory database — so every campaign knows which accounts it's expected to reach, without Kaylee manually cross-referencing. Christina (organic social + ad-hoc email) is part of this engine — her channels connect to the same brief and pipeline.</div>
       </div>
       <div class="layer-tools">
         <span class="tool-pill confirmed">ClickUp ✓</span>
         <span class="tool-pill confirmed">Webflow ✓</span>
         <span class="tool-pill confirmed">LinkedIn Ads ✓</span>
-        <span class="tool-pill gap">Pipeline attribution ⚠ gap</span>
+        <span class="tool-pill evaluating">Territory DB — stretch goal</span>
       </div>
       <div class="layer-payoff">
         <div class="layer-section-label">What you get back</div>
-        Campaign strategy, experimentation, and signal analysis — instead of writing ad hoc copy and chasing hand-offs across Slack.
+        Time to assess strategy, monitor performance, and call next steps — instead of building ClickUp tasks, writing briefs, and chasing hand-offs.
       </div>
     </div>
 
@@ -679,6 +704,10 @@
   </div>
 
 </div>
+
+<!-- ══════════ FLOATING EDIT BUTTON ══════════ -->
+<button id="fabEdit" class="fab-edit" onclick="toggleEditMode()" title="Toggle edit mode">✏️</button>
+<div class="fab-edit-label" id="fabLabel">Edit mode off</div>
 
 <!-- Phase legend -->
 <div class="phase-legend">
@@ -1307,6 +1336,10 @@ function toggleEditMode() {
   const btn = document.getElementById('editToggleBtn');
   btn.textContent = editMode ? '✓ Editing' : '✏️ Edit';
   btn.classList.toggle('active', editMode);
+  const fab = document.getElementById('fabEdit');
+  const fabLabel = document.getElementById('fabLabel');
+  if (fab) { fab.textContent = editMode ? '✓' : '✏️'; fab.classList.toggle('active', editMode); }
+  if (fabLabel) fabLabel.textContent = editMode ? 'Editing — click to finish' : 'Edit mode off';
   document.querySelectorAll('.card, .card-parent-header, .card-child').forEach(c => c.setAttribute('draggable', editMode));
 }
 
