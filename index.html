@@ -118,18 +118,59 @@
   }
   .card:hover { box-shadow: var(--card-hover); transform: translateY(-1px); }
 
-  /* Parent / workstream card */
-  .card.card-parent {
-    border: 2px solid var(--purple);
-    background: var(--purple-light);
+  /* ── SWIMLANE HIERARCHY ── */
+  .workstream-group { margin-bottom: 14px; }
+
+  .card-parent-header {
+    background: var(--purple-light); border: 1.5px solid var(--purple-mid);
+    border-radius: 8px 8px 0 0; padding: 10px 12px;
+    position: relative; cursor: default;
   }
-  .card.card-parent::before {
-    content: '↓ Workstream';
-    position: absolute; top: 4px; right: 8px;
-    font-size: 9px; color: var(--purple); font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.5px;
+  .card-parent-header:hover { box-shadow: var(--card-hover); }
+  .parent-header-top {
+    display: flex; align-items: flex-start; gap: 7px;
   }
-  body.edit-mode .card.card-parent:hover::before { opacity: 0; }
+  .chevron-btn {
+    background: none; border: none; color: var(--purple);
+    font-size: 10px; cursor: pointer; padding: 1px 0; flex-shrink: 0; line-height: 1;
+    margin-top: 2px;
+  }
+  .chevron-btn:hover { opacity: 0.7; }
+  .parent-title {
+    font-weight: 700; font-size: 13px; color: var(--purple); flex: 1; line-height: 1.35;
+  }
+  .parent-meta { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+  .parent-body {
+    font-size: 11px; color: var(--muted); margin-top: 5px;
+    margin-left: 18px; line-height: 1.4;
+  }
+  .parent-footer {
+    margin-top: 6px; margin-left: 18px;
+  }
+  .parent-child-count { font-size: 10px; color: var(--muted); }
+
+  .card-rail {
+    border-left: 3px solid var(--purple-mid); margin-left: 14px;
+  }
+  .card-child {
+    background: var(--white); border: 1px solid var(--border);
+    border-top: none; padding: 9px 12px;
+    font-size: 12px; line-height: 1.4; position: relative; cursor: default;
+  }
+  .card-child:last-child { border-radius: 0 0 8px 0; }
+  .card-child:hover { background: #FAFAFA; }
+  .child-footer {
+    display: flex; align-items: center; justify-content: space-between; margin-top: 7px;
+  }
+
+  /* ── DUE DATE CHIPS ── */
+  .card-due {
+    font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 10px; letter-spacing: 0.2px; white-space: nowrap;
+  }
+  .due-normal { background: #E3F2FD; color: #1565C0; }
+  .due-soon   { background: #FFF3E0; color: #BF360C; }
+  .due-urgent { background: #FFEBEE; color: #B71C1C; }
 
   /* Placeholder card */
   .card.placeholder {
@@ -168,81 +209,111 @@
   .tag-tool { background: #E0F2F1; color: #00695C; }
   .tag-metric { background: #E8EAF6; color: #283593; }
 
-  /* Due date chip */
-  .card-due {
-    display: flex; align-items: center; gap: 4px;
-    font-size: 10px; color: var(--muted); margin-top: 5px;
-  }
-  .card-due .due-icon { font-size: 10px; }
-
-  /* Assignee chip */
-  .card-assignee {
-    display: flex; align-items: center; gap: 5px;
-    font-size: 10px; color: var(--muted); margin-top: 5px;
-    padding-top: 5px; border-top: 1px solid var(--border);
-  }
+  /* Assignee avatar */
   .assignee-avatar {
-    width: 16px; height: 16px; border-radius: 50%;
-    font-size: 8px; font-weight: 700; color: white;
+    width: 22px; height: 22px; border-radius: 50%;
+    font-size: 9px; font-weight: 700; color: white;
     display: inline-flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
 
-  /* ── FLOW SECTION ── */
-  .flow-section {
-    margin-top: 32px; padding: 24px; background: var(--white);
-    border-radius: 12px; border: 1px solid var(--border);
-  }
-  .flow-section h2 { font-size: 16px; color: var(--purple); margin-bottom: 16px; font-weight: 700; }
-  .flow-diagram {
-    display: flex; align-items: center; justify-content: center;
-    gap: 12px; flex-wrap: wrap; padding: 16px 0;
-  }
-  .flow-node {
-    padding: 12px 18px; border-radius: 8px; font-size: 12px;
-    font-weight: 600; text-align: center; min-width: 140px; line-height: 1.4;
-  }
-  .flow-node.pmm-node { background: var(--pmm-bg); color: var(--pmm); border: 2px solid var(--pmm-border); }
-  .flow-node.content-node { background: var(--content-bg); color: var(--content); border: 2px solid var(--content-border); }
-  .flow-node.growth-node { background: var(--growth-bg); color: var(--growth); border: 2px solid var(--growth-border); }
-  .flow-node.ai-node { background: #EDE7F6; color: var(--purple); border: 2px dashed var(--purple); font-style: italic; }
-  .flow-arrow { font-size: 20px; color: var(--purple); font-weight: 700; }
-
   /* ── LEGEND ── */
-  .legend {
-    display: flex; justify-content: center; gap: 24px;
-    margin-top: 20px; font-size: 11px; color: var(--muted); flex-wrap: wrap;
-  }
+  .legend { display: flex; justify-content: center; gap: 24px; margin-top: 20px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .legend-box { width: 20px; height: 14px; border-radius: 3px; display: inline-block; border: 1px dashed var(--purple-mid); background: var(--purple-light); }
-  .legend-parent { width: 20px; height: 14px; border-radius: 3px; display: inline-block; border: 2px solid var(--purple); background: var(--purple-light); }
 
-  /* ── CHANNELS ── */
-  .channels-section {
-    margin-top: 24px; padding: 20px 24px; background: var(--white);
-    border-radius: 12px; border: 1px solid var(--border);
+  /* ── ENDGAME DIAGRAM ── */
+  .endgame-section {
+    background: var(--white); border-radius: 12px; border: 1px solid var(--border);
+    padding: 28px 32px; margin-bottom: 24px;
   }
-  .channels-section h2 { font-size: 16px; color: var(--dark); margin-bottom: 14px; font-weight: 700; }
-  .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
-  .channel-card { background: var(--growth-bg); border: 1px solid var(--growth-border); border-radius: 8px; padding: 10px 14px; font-size: 12px; }
-  .channel-card .ch-name { font-weight: 700; color: var(--dark); margin-bottom: 3px; }
-  .channel-card .ch-detail { font-size: 11px; color: var(--muted); }
+  .endgame-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    color: var(--purple); text-transform: uppercase; margin-bottom: 8px;
+  }
+  .endgame-headline {
+    font-size: 20px; font-weight: 700; color: var(--dark);
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .endgame-subtext {
+    font-size: 14px; color: var(--body); line-height: 1.65; max-width: 800px; margin-bottom: 12px;
+  }
+  .endgame-proof {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    padding-bottom: 24px; border-bottom: 1px solid var(--border); margin-bottom: 24px;
+  }
+  .proof-badge {
+    background: #E8F5E9; color: #2E7D32; font-size: 12px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px; border: 1px solid #A5D6A7; white-space: nowrap;
+  }
+  .proof-text { font-size: 12px; color: var(--muted); }
 
-  /* ── ABM ── */
-  .abm-section {
-    margin-top: 24px; padding: 20px 24px; background: var(--white);
-    border-radius: 12px; border: 1px solid var(--border);
+  .endgame-layers {
+    display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr;
+    gap: 0; align-items: start; margin-bottom: 20px;
   }
-  .abm-section h2 { font-size: 16px; color: var(--purple); margin-bottom: 14px; font-weight: 700; }
-  .abm-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-  .abm-card { background: var(--purple-light); border: 1px solid var(--pmm-border); border-radius: 8px; padding: 12px; font-size: 11px; text-align: center; }
-  .abm-card .abm-name { font-weight: 700; color: var(--purple); font-size: 12px; margin-bottom: 4px; }
-  .abm-card .abm-product { font-size: 10px; color: var(--muted); }
+  .layer-connector {
+    font-size: 22px; color: var(--purple); font-weight: 700;
+    text-align: center; padding-top: 56px;
+  }
+  .layer-card {
+    border-radius: 10px; border: 1px solid var(--border);
+    padding: 16px; display: flex; flex-direction: column; gap: 11px;
+  }
+  .layer-card.layer-pmm    { border-color: var(--pmm-border);     background: var(--pmm-bg); }
+  .layer-card.layer-content{ border-color: var(--content-border); background: var(--content-bg); }
+  .layer-card.layer-growth { border-color: var(--growth-border);  background: var(--growth-bg); }
+
+  .layer-header { display: flex; align-items: center; gap: 10px; }
+  .layer-icon { font-size: 22px; }
+  .layer-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .layer-dri  { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .layer-section-label {
+    font-size: 9px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
+  }
+  .layer-today {
+    font-size: 12px; color: var(--body); line-height: 1.5;
+    background: rgba(0,0,0,0.035); border-radius: 6px; padding: 8px 10px;
+  }
+  .layer-workflow { font-size: 12px; }
+  .mini-flow {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin: 6px 0;
+  }
+  .mini-node {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 8px; font-size: 11px; color: var(--body);
+  }
+  .mini-node.ai {
+    background: var(--purple-light); border-color: var(--purple-mid);
+    color: var(--purple); font-weight: 600; font-style: italic;
+  }
+  .mini-arrow { color: var(--purple); font-weight: 700; font-size: 13px; }
+  .layer-subtext { font-size: 11px; color: var(--muted); line-height: 1.45; margin-top: 4px; }
+
+  .layer-tools { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tool-pill {
+    font-size: 11px; font-weight: 600; padding: 3px 9px;
+    border-radius: 10px; border: 1px solid;
+  }
+  .tool-pill.confirmed  { background: #E8F5E9; color: #2E7D32; border-color: #A5D6A7; }
+  .tool-pill.evaluating { background: #FFF8E1; color: #E65100; border-color: #FFE082; }
+  .tool-pill.gap        { background: #FFEBEE; color: #C62828; border-color: #FFCDD2; }
+
+  .layer-payoff {
+    font-size: 12px; color: var(--body); line-height: 1.5; font-weight: 500;
+    border-top: 1px solid rgba(0,0,0,0.08); padding-top: 9px;
+  }
+  .endgame-stat {
+    text-align: center; font-size: 13px; color: var(--muted); background: var(--bg);
+    border-radius: 8px; padding: 13px 24px; line-height: 1.65; border: 1px solid var(--border);
+  }
+  .endgame-stat strong { color: var(--dark); }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 1100px) { .roadmap-grid { grid-template-columns: 120px 1fr 1fr 1fr; } .abm-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 768px) { .roadmap-grid { grid-template-columns: 100px 1fr; } .abm-grid { grid-template-columns: 1fr 1fr; } .channel-grid { grid-template-columns: 1fr 1fr; } .form-row { grid-template-columns: 1fr; } }
+  @media (max-width: 1100px) { .roadmap-grid { grid-template-columns: 120px 1fr 1fr 1fr; } .endgame-layers { grid-template-columns: 1fr; } .layer-connector { display: none; } }
+  @media (max-width: 768px)  { .roadmap-grid { grid-template-columns: 100px 1fr; } .form-row { grid-template-columns: 1fr; } }
 
   /* ═══════════════════════════════════
      HEADER ACTIONS
@@ -285,7 +356,9 @@
     position: absolute; top: 5px; right: 5px;
     display: flex; gap: 3px; opacity: 0; transition: opacity 0.15s; z-index: 10;
   }
-  body.edit-mode .card:hover .card-actions { opacity: 1; }
+  body.edit-mode .card:hover .card-actions,
+  body.edit-mode .card-parent-header:hover .card-actions,
+  body.edit-mode .card-child:hover .card-actions { opacity: 1; }
   .card-action-btn {
     width: 22px; height: 22px; border-radius: 4px; border: 1px solid var(--border);
     background: white; color: var(--muted); font-size: 13px; cursor: pointer;
@@ -468,6 +541,145 @@
   </div>
 </div>
 
+<!-- ══════════ ENDGAME DIAGRAM ══════════ -->
+<div class="endgame-section">
+
+  <div class="endgame-eyebrow">The endgame</div>
+  <div class="endgame-headline">Remove the low-leverage work between functions.</div>
+  <div class="endgame-subtext">
+    The business will ask: <em>"How is Marketing getting more efficient with AI?"</em> The answer isn't a list of tools — it's a system where AI handles the hand-offs: the reformatting, the starting-from-scratch, the manual coordination between Research, Content, and Distribution. Every function redeployes to the work that actually moves pipeline.
+  </div>
+  <div class="endgame-proof">
+    <span class="proof-badge">✓ Already proven with Delivered</span>
+    <span class="proof-text">Primary research → content → multi-channel distribution → signal capture. Running in a 2-week cycle, without AI. This system scales and automates that model across all of marketing.</span>
+  </div>
+
+  <div class="endgame-layers">
+
+    <!-- Layer 1: Research & Positioning -->
+    <div class="layer-card layer-pmm">
+      <div class="layer-header">
+        <div class="layer-icon">🔬</div>
+        <div>
+          <div class="layer-name">Research &amp; Positioning</div>
+          <div class="layer-dri">Sofia · Kathy · DRI: Sofia Nilsson Burston</div>
+        </div>
+      </div>
+      <div class="layer-today">
+        <div class="layer-section-label">Today's bottleneck</div>
+        Research lives in Confluence decks and slide decks. Turning positioning into battle cards, one-pagers, or objection handlers is a manual, multi-person effort every time. Rich formats — but AI can't read them.
+      </div>
+      <div class="layer-workflow">
+        <div class="layer-section-label">With AI: Sales Enablement on demand</div>
+        <div class="mini-flow">
+          <div class="mini-node">Structured Confluence template</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node ai">Claude extracts &amp; drafts</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node">Gamma generates final assets</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node">Airtable archives + scores</div>
+        </div>
+        <div class="layer-subtext">Sofia and Kaylee co-build this workflow first. PMM reviews and scores output quarterly — that scoring feeds back to improve the system. Human-in-the-loop for at least the first two quarters before wider deployment.</div>
+      </div>
+      <div class="layer-tools">
+        <span class="tool-pill confirmed">Confluence ✓</span>
+        <span class="tool-pill confirmed">Claude Code ✓</span>
+        <span class="tool-pill confirmed">Airtable ✓</span>
+        <span class="tool-pill evaluating">Gamma — evaluating Apr</span>
+      </div>
+      <div class="layer-payoff">
+        <div class="layer-section-label">What you get back</div>
+        Time for primary research and customer interviews — the work only humans can do.
+      </div>
+    </div>
+
+    <div class="layer-connector">→</div>
+
+    <!-- Layer 2: Content & Assets -->
+    <div class="layer-card layer-content">
+      <div class="layer-header">
+        <div class="layer-icon">✏️</div>
+        <div>
+          <div class="layer-name">Content &amp; Assets</div>
+          <div class="layer-dri">Tom · Lana · DRI: Tom Hayward</div>
+        </div>
+      </div>
+      <div class="layer-today">
+        <div class="layer-section-label">Today's bottleneck</div>
+        Every asset starts from a blank page. One Delivered interview or piece of research exists — but turning it into a blog post, email, or social series is a separate manual process each time.
+      </div>
+      <div class="layer-workflow">
+        <div class="layer-section-label">With AI: Always-on content pipeline</div>
+        <div class="mini-flow">
+          <div class="mini-node">Research inputs (Delivered, PMM, interviews)</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node ai">AI generates content pipeline</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node">Tom &amp; Lana curate + direct</div>
+        </div>
+        <div class="layer-subtext">Briefs, headlines, email concepts, social angles, video scripts — always in the queue. Tom and Lana start from a curated pipeline, not a blank page. Lana's AI tool evaluation feeds directly into the May build.</div>
+      </div>
+      <div class="layer-tools">
+        <span class="tool-pill confirmed">Claude Code ✓</span>
+        <span class="tool-pill confirmed">beehiiv ✓</span>
+        <span class="tool-pill evaluating">Content AI tool — evaluating Apr</span>
+      </div>
+      <div class="layer-payoff">
+        <div class="layer-section-label">What you get back</div>
+        Editorial judgment and brand voice across more formats — instead of time on first drafts and manual repurposing.
+      </div>
+    </div>
+
+    <div class="layer-connector">→</div>
+
+    <!-- Layer 3: Distribution Engine -->
+    <div class="layer-card layer-growth">
+      <div class="layer-header">
+        <div class="layer-icon">📡</div>
+        <div>
+          <div class="layer-name">Distribution Engine</div>
+          <div class="layer-dri">DRI: Kaylee Liu</div>
+        </div>
+      </div>
+      <div class="layer-today">
+        <div class="layer-section-label">Today's bottleneck</div>
+        Campaign copy written ad hoc or adapted manually per account cluster. Coordination happens through Slack threads with no clear ownership trail from brief to go-live.
+      </div>
+      <div class="layer-workflow">
+        <div class="layer-section-label">With AI: Brief once, launch everywhere</div>
+        <div class="mini-flow">
+          <div class="mini-node">One source brief</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node ai">AI generates cluster variants</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node">Kaylee reviews + approves</div>
+          <div class="mini-arrow">→</div>
+          <div class="mini-node">ClickUp tracks to launch</div>
+        </div>
+        <div class="layer-subtext">Structured ClickUp workflows replace Slack threads. Clear ownership and due dates from brief to go-live. Airtable tracks pipeline influence — so we can answer "what did this campaign do?" with data.</div>
+      </div>
+      <div class="layer-tools">
+        <span class="tool-pill confirmed">ClickUp ✓</span>
+        <span class="tool-pill confirmed">Webflow ✓</span>
+        <span class="tool-pill confirmed">LinkedIn Ads ✓</span>
+        <span class="tool-pill gap">Pipeline attribution ⚠ gap</span>
+      </div>
+      <div class="layer-payoff">
+        <div class="layer-section-label">What you get back</div>
+        Campaign strategy, experimentation, and signal analysis — instead of writing ad hoc copy and chasing hand-offs across Slack.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="endgame-stat">
+    <strong>95% of B2B buyers aren't in-market at any given time</strong> — Ehrenberg-Bass Institute via LinkedIn B2B Institute.
+    This system serves both: the 95% with always-on content at scale, and the 5% with conversion-ready enablement. Consistently, at pace, across more formats than the team could produce manually.
+  </div>
+
+</div>
+
 <!-- Phase legend -->
 <div class="phase-legend">
   <div class="phase-tag"><span class="phase-num">Apr</span> Discover &amp; Decide</div>
@@ -546,74 +758,6 @@
   <div class="legend-item"><span class="legend-box"></span> Placeholder — shape together</div>
 </div>
 
-<!-- ══════════ SYSTEM FLOW ══════════ -->
-<div class="flow-section">
-  <h2>System flow: how B2B GTM proves the AI-powered process</h2>
-  <div class="flow-diagram">
-    <div class="flow-node pmm-node">🔬 B2B Research<br><small>ICP · competitive intel · messaging</small></div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-node ai-node">🤖 AI layer<br><small>Extracts, drafts, adapts</small></div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-node content-node">✏️ B2B Content<br><small>Enablement · articles · email · webinar</small></div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-node ai-node">🤖 AI layer<br><small>Cluster variants · one brief → many</small></div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-node growth-node">📡 B2B Campaigns<br><small>LinkedIn · email · sales activation</small></div>
-  </div>
-  <div style="text-align:center; margin-top:12px; font-size:12px; color:var(--muted);">
-    June launch + July webinar = proof this system works. Repeat for every GTM motion after.
-  </div>
-</div>
-
-<!-- ══════════ ABM PROGRAMS ══════════ -->
-<div class="abm-section">
-  <h2>Active ABM programs (fed by this system)</h2>
-  <div class="abm-grid">
-    <div class="abm-card"><div class="abm-name">Trade &amp; Industrial</div><div class="abm-product">NowGo</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Fleet optimisation for trade distributors, 3PLs, service orgs</div></div>
-    <div class="abm-card"><div class="abm-name">Perishables</div><div class="abm-product">NowGo</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Time-sensitive routing for beverage, food, healthcare</div></div>
-    <div class="abm-card"><div class="abm-name">Bulky &amp; Valuables</div><div class="abm-product">Shippit + NowGo</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Complex CX for furniture, electronics, appliances</div></div>
-    <div class="abm-card"><div class="abm-name">Pipeline Accelerator</div><div class="abm-product">Both</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">Accounts already in pipeline — accelerate to close</div></div>
-    <div class="abm-card"><div class="abm-name">Territory Accelerator</div><div class="abm-product">Shippit</div><div style="font-size:10px;color:var(--muted);margin-top:4px;">T1–T3 territory, signal-based automated activation</div></div>
-  </div>
-</div>
-
-<!-- ══════════ CHANNEL OUTPUTS ══════════ -->
-<div class="channels-section">
-  <h2>B2B launch distribution channels</h2>
-  <div class="channel-grid">
-    <div class="channel-card"><div class="ch-name">LinkedIn Ads</div><div class="ch-detail">1:few cluster ads + 1:1 signal-triggered. Creative from Canva templates.</div></div>
-    <div class="channel-card"><div class="ch-name">Sales Email Drips</div><div class="ch-detail">AI-generated from PMM research. Persona-specific sequences.</div></div>
-    <div class="channel-card"><div class="ch-name">Webflow Landing Pages</div><div class="ch-detail">B2B prospect-specific: logo, hero, headline, case studies, form.</div></div>
-    <div class="channel-card"><div class="ch-name">One-pagers (PDF)</div><div class="ch-detail">AI-drafted from PMM B2B positioning. Colin designs.</div></div>
-    <div class="channel-card"><div class="ch-name">Blog / SEO</div><div class="ch-detail">B2B-focused articles. AI drafts, Tom/Lana refine.</div></div>
-    <div class="channel-card"><div class="ch-name">Delivered Newsletter</div><div class="ch-detail">B2B launch feature story + ongoing customer proof points.</div></div>
-    <div class="channel-card"><div class="ch-name">Webinar (21 Jul)</div><div class="ch-detail">Full B2B launch activation. AI-assisted slides + email campaign.</div></div>
-    <div class="channel-card"><div class="ch-name">Organic Social</div><div class="ch-detail">AI-generated B2B social angles. Content team curates.</div></div>
-  </div>
-</div>
-
-<!-- ══════════ FOUR FOCUS AREAS ══════════ -->
-<div class="flow-section" style="margin-top:24px;">
-  <h2>How B2B launch supports the four business focus areas</h2>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px;">
-    <div style="background:var(--purple-light);padding:14px;border-radius:8px;text-align:center;">
-      <div style="font-weight:700;color:var(--purple);font-size:13px;margin-bottom:4px;">Land with Enterprise (Retail)</div>
-      <div style="font-size:11px;color:var(--muted);">Sharper B2B messaging from structured research. Faster enablement production.</div>
-    </div>
-    <div style="background:var(--purple-light);padding:14px;border-radius:8px;text-align:center;">
-      <div style="font-weight:700;color:var(--purple);font-size:13px;margin-bottom:4px;">Land with Trade</div>
-      <div style="font-size:11px;color:var(--muted);">B2B proof points from Delivered interviews, repurposed automatically into enablement.</div>
-    </div>
-    <div style="background:var(--purple-light);padding:14px;border-radius:8px;text-align:center;">
-      <div style="font-weight:700;color:var(--purple);font-size:13px;margin-bottom:4px;">Expand with Shipping</div>
-      <div style="font-size:11px;color:var(--muted);">Full B2B buyer journey content — upsell and cross-sell through targeted nurture.</div>
-    </div>
-    <div style="background:var(--purple-light);padding:14px;border-radius:8px;text-align:center;">
-      <div style="font-weight:700;color:var(--purple);font-size:13px;margin-bottom:4px;">Expand with B2B</div>
-      <div style="font-size:11px;color:var(--muted);">New B2B offer — the primary forcing function for this entire AI adoption plan.</div>
-    </div>
-  </div>
-</div>
 
 <div style="text-align:center;margin-top:32px;font-size:11px;color:var(--muted);padding-bottom:24px;">
   AI Evolution Roadmap — March 2026. All cards are editable. Due dates and owners are pre-populated — update as the team aligns.
@@ -942,6 +1086,35 @@ async function saveToGitHub() {
 }
 
 // ══════════════════════════════════════════════════════════════
+// DATE HELPERS
+// ══════════════════════════════════════════════════════════════
+
+function parseDueDate(str) {
+  if (!str) return null;
+  const months = {Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11};
+  const m = str.match(/([A-Za-z]+)\s*(\d+)/);
+  if (!m) return null;
+  const key = m[1].charAt(0).toUpperCase() + m[1].slice(1,3).toLowerCase();
+  const mon = months[key];
+  if (mon === undefined) return null;
+  return new Date(2026, mon, parseInt(m[2]));
+}
+function compareDates(a, b) {
+  const da = parseDueDate(a), db = parseDueDate(b);
+  if (!da && !db) return 0; if (!da) return 1; if (!db) return -1;
+  return da - db;
+}
+function dueDateClass(str) {
+  const d = parseDueDate(str);
+  if (!d) return 'due-normal';
+  const today = new Date(2026, 2, 23);
+  const days = (d - today) / 86400000;
+  if (days <= 7) return 'due-urgent';
+  if (days <= 14) return 'due-soon';
+  return 'due-normal';
+}
+
+// ══════════════════════════════════════════════════════════════
 // RENDER
 // ══════════════════════════════════════════════════════════════
 
@@ -950,7 +1123,19 @@ function render() {
     const cellEl = document.getElementById('cell-' + key);
     if (!cellEl) return;
     cellEl.innerHTML = '';
-    (state.cells[key] || []).forEach(card => cellEl.appendChild(mkCard(card, key)));
+    const cards = state.cells[key] || [];
+
+    const parents = cards.filter(c => c.isParent).sort((a,b) => compareDates(a.dueDate, b.dueDate));
+    const childMap = {};
+    cards.filter(c => c.parentId).forEach(c => { (childMap[c.parentId] = childMap[c.parentId] || []).push(c); });
+    const standalones = cards.filter(c => !c.isParent && !c.parentId).sort((a,b) => compareDates(a.dueDate, b.dueDate));
+
+    parents.forEach(parent => {
+      const children = (childMap[parent.id] || []).sort((a,b) => compareDates(a.dueDate, b.dueDate));
+      cellEl.appendChild(mkWorkstreamGroup(parent, children, key));
+    });
+    standalones.forEach(card => cellEl.appendChild(mkStandaloneCard(card, key)));
+
     const addBtn = document.createElement('button');
     addBtn.className = 'add-card-btn';
     addBtn.textContent = '+ Add card';
@@ -959,55 +1144,123 @@ function render() {
   });
 }
 
-function mkCard(card, cellKey) {
+function mkWorkstreamGroup(parent, children, cellKey) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'workstream-group';
+  wrapper.id = 'wsg-' + parent.id;
+  wrapper.appendChild(mkParentHeader(parent, cellKey, children.length));
+  const rail = document.createElement('div');
+  rail.className = 'card-rail';
+  rail.id = 'rail-' + parent.id;
+  children.forEach(child => rail.appendChild(mkChildCard(child, cellKey)));
+  wrapper.appendChild(rail);
+  return wrapper;
+}
+
+function mkParentHeader(card, cellKey, childCount) {
   const el = document.createElement('div');
-  const classes = ['card'];
-  if (card.isParent) classes.push('card-parent');
-  if (card.isPlaceholder) classes.push('placeholder');
-  el.className = classes.join(' ');
+  el.className = 'card-parent-header';
   el.dataset.id = card.id;
   el.dataset.cell = cellKey;
-  if (card.status === 'outcome') el.style.borderLeft = '3px solid #283593';
-
-  const dot = (card.status && card.status !== 'outcome' && !card.isParent)
-    ? `<span class="status ${esc(card.status)}"></span>` : '';
-
-  const tagHtml = card.tag
-    ? `<span class="card-tag tag-${esc(card.tag)}">${esc(TAG_LABELS[card.tag]||card.tag)}</span>` : '';
-
-  const dueHtml = card.dueDate
-    ? `<div class="card-due"><span class="due-icon">📅</span>${esc(card.dueDate)}</div>` : '';
-
-  let assigneeHtml = '';
-  if (card.assignee) {
-    const color = getAvatarColor(card.assignee);
-    assigneeHtml = `<div class="card-assignee"><div class="assignee-avatar" style="background:${color}" title="${esc(card.assignee)}">${getInitials(card.assignee)}</div><span>${esc(card.assignee)}</span></div>`;
-  }
-
+  const color = getAvatarColor(card.assignee || '');
+  const dc = dueDateClass(card.dueDate);
+  const dueHtml = card.dueDate ? `<span class="card-due ${dc}">${esc(card.dueDate.toUpperCase())}</span>` : '';
+  const avHtml = card.assignee ? `<div class="assignee-avatar" style="background:${color}" title="${esc(card.assignee)}">${getInitials(card.assignee)}</div>` : '';
   el.innerHTML = `
     <div class="card-actions">
-      <button class="card-action-btn card-edit-btn" title="Edit card">✎</button>
-      <button class="card-action-btn card-delete-btn" title="Delete card">×</button>
+      <button class="card-action-btn card-edit-btn" title="Edit">✎</button>
+      <button class="card-action-btn card-delete-btn" title="Delete">×</button>
+    </div>
+    <div class="parent-header-top">
+      <button class="chevron-btn" onclick="toggleWorkstream('${esc(card.id)}')">▼</button>
+      <div class="parent-title">${esc(card.title)}</div>
+      <div class="parent-meta">${dueHtml}${avHtml}</div>
+    </div>
+    ${card.body ? `<div class="parent-body">${esc(card.body)}</div>` : ''}
+    <div class="parent-footer"><span class="parent-child-count">${childCount} subtask${childCount !== 1 ? 's' : ''}</span></div>
+  `;
+  el.querySelector('.card-edit-btn').addEventListener('click', e => { e.stopPropagation(); openEditModal(card.id, cellKey); });
+  el.querySelector('.card-delete-btn').addEventListener('click', e => { e.stopPropagation(); deleteCard(card.id, cellKey); });
+  el.setAttribute('draggable', editMode ? 'true' : 'false');
+  el.addEventListener('dragstart', e => { if (!editMode) { e.preventDefault(); return; } dragState = { cardId: card.id, sourceCellKey: cellKey }; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => el.classList.add('dragging'), 0); });
+  el.addEventListener('dragend', () => el.classList.remove('dragging'));
+  el.addEventListener('dblclick', () => { if (editMode) openEditModal(card.id, cellKey); });
+  return el;
+}
+
+function mkChildCard(card, cellKey) {
+  const el = document.createElement('div');
+  el.className = 'card-child';
+  el.dataset.id = card.id;
+  el.dataset.cell = cellKey;
+  const color = getAvatarColor(card.assignee || '');
+  const dc = dueDateClass(card.dueDate);
+  const dot = (card.status && card.status !== 'outcome') ? `<span class="status ${esc(card.status)}"></span>` : '';
+  const tagHtml = card.tag ? `<span class="card-tag tag-${esc(card.tag)}">${esc(TAG_LABELS[card.tag]||card.tag)}</span>` : '';
+  const dueHtml = card.dueDate ? `<span class="card-due ${dc}">${esc(card.dueDate.toUpperCase())}</span>` : '';
+  const avHtml = card.assignee ? `<div class="assignee-avatar" style="background:${color}" title="${esc(card.assignee)}">${getInitials(card.assignee)}</div>` : '';
+  el.innerHTML = `
+    <div class="card-actions">
+      <button class="card-action-btn card-edit-btn" title="Edit">✎</button>
+      <button class="card-action-btn card-delete-btn" title="Delete">×</button>
     </div>
     <div class="card-title">${dot}${esc(card.title)}</div>
     ${card.body ? `<div class="card-body">${esc(card.body)}</div>` : ''}
-    ${tagHtml}${dueHtml}${assigneeHtml}
+    ${tagHtml}
+    <div class="child-footer">${dueHtml}${avHtml}</div>
   `;
-
   el.querySelector('.card-edit-btn').addEventListener('click', e => { e.stopPropagation(); openEditModal(card.id, cellKey); });
   el.querySelector('.card-delete-btn').addEventListener('click', e => { e.stopPropagation(); deleteCard(card.id, cellKey); });
-
-  el.addEventListener('dragstart', e => {
-    if (!editMode) { e.preventDefault(); return; }
-    dragState = { cardId: card.id, sourceCellKey: cellKey };
-    e.dataTransfer.effectAllowed = 'move';
-    setTimeout(() => el.classList.add('dragging'), 0);
-  });
+  el.setAttribute('draggable', editMode ? 'true' : 'false');
+  el.addEventListener('dragstart', e => { if (!editMode) { e.preventDefault(); return; } dragState = { cardId: card.id, sourceCellKey: cellKey }; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => el.classList.add('dragging'), 0); });
   el.addEventListener('dragend', () => el.classList.remove('dragging'));
   el.addEventListener('dblclick', () => { if (editMode) openEditModal(card.id, cellKey); });
-
   return el;
 }
+
+function mkStandaloneCard(card, cellKey) {
+  const el = document.createElement('div');
+  el.className = 'card' + (card.isPlaceholder ? ' placeholder' : '');
+  el.dataset.id = card.id;
+  el.dataset.cell = cellKey;
+  if (card.status === 'outcome') el.style.borderLeft = '3px solid #283593';
+  const color = getAvatarColor(card.assignee || '');
+  const dc = dueDateClass(card.dueDate);
+  const dot = (card.status && card.status !== 'outcome') ? `<span class="status ${esc(card.status)}"></span>` : '';
+  const tagHtml = card.tag ? `<span class="card-tag tag-${esc(card.tag)}">${esc(TAG_LABELS[card.tag]||card.tag)}</span>` : '';
+  const dueHtml = card.dueDate ? `<span class="card-due ${dc}">${esc(card.dueDate.toUpperCase())}</span>` : '';
+  const avHtml = card.assignee ? `<div class="assignee-avatar" style="background:${color}" title="${esc(card.assignee)}">${getInitials(card.assignee)}</div>` : '';
+  el.innerHTML = `
+    <div class="card-actions">
+      <button class="card-action-btn card-edit-btn" title="Edit">✎</button>
+      <button class="card-action-btn card-delete-btn" title="Delete">×</button>
+    </div>
+    <div class="card-title">${dot}${esc(card.title)}</div>
+    ${card.body ? `<div class="card-body">${esc(card.body)}</div>` : ''}
+    ${tagHtml}
+    <div class="child-footer">${dueHtml}${avHtml}</div>
+  `;
+  el.querySelector('.card-edit-btn').addEventListener('click', e => { e.stopPropagation(); openEditModal(card.id, cellKey); });
+  el.querySelector('.card-delete-btn').addEventListener('click', e => { e.stopPropagation(); deleteCard(card.id, cellKey); });
+  el.setAttribute('draggable', editMode ? 'true' : 'false');
+  el.addEventListener('dragstart', e => { if (!editMode) { e.preventDefault(); return; } dragState = { cardId: card.id, sourceCellKey: cellKey }; e.dataTransfer.effectAllowed = 'move'; setTimeout(() => el.classList.add('dragging'), 0); });
+  el.addEventListener('dragend', () => el.classList.remove('dragging'));
+  el.addEventListener('dblclick', () => { if (editMode) openEditModal(card.id, cellKey); });
+  return el;
+}
+
+function toggleWorkstream(parentId) {
+  const rail = document.getElementById('rail-' + parentId);
+  const header = document.querySelector('[data-id="' + parentId + '"]');
+  const chevron = header ? header.querySelector('.chevron-btn') : null;
+  if (!rail) return;
+  const collapsed = rail.style.display === 'none';
+  rail.style.display = collapsed ? '' : 'none';
+  if (chevron) chevron.textContent = collapsed ? '▼' : '▶';
+}
+
+// mkCard kept as alias so modal/CRUD code still works
+function mkCard(card, cellKey) { return mkStandaloneCard(card, cellKey); }
 
 // ══════════════════════════════════════════════════════════════
 // DRAG AND DROP
@@ -1038,7 +1291,7 @@ function setupDropZones() {
 }
 
 function getDropAfterElement(container, y) {
-  const cards = [...container.querySelectorAll('.card:not(.dragging)')];
+  const cards = [...container.querySelectorAll('.workstream-group:not(.dragging), .card:not(.dragging)')];
   let closest = null, closestOffset = -Infinity;
   for (const c of cards) { const { top, height } = c.getBoundingClientRect(); const offset = y - top - height / 2; if (offset < 0 && offset > closestOffset) { closestOffset = offset; closest = c; } }
   return closest;
@@ -1054,7 +1307,7 @@ function toggleEditMode() {
   const btn = document.getElementById('editToggleBtn');
   btn.textContent = editMode ? '✓ Editing' : '✏️ Edit';
   btn.classList.toggle('active', editMode);
-  document.querySelectorAll('.card').forEach(c => c.setAttribute('draggable', editMode));
+  document.querySelectorAll('.card, .card-parent-header, .card-child').forEach(c => c.setAttribute('draggable', editMode));
 }
 
 // ══════════════════════════════════════════════════════════════
