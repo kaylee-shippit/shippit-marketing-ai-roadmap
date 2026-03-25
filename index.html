@@ -941,7 +941,17 @@
   <div class="col-header">May: Build with AI<span class="phase-sub">Positioning · Content production · Enablement</span></div>
   <div class="col-header">June: Launch<span class="phase-sub">Campaigns live · Sales activation · Webinar ready (21 Jul)</span></div>
 
-  <!-- ROW 1: PMM -->
+  <!-- ROW 1: AI Workflows -->
+  <div class="row-label tools">
+    <span class="layer-icon">⚙️</span>
+    <span class="layer-name">AI Workflows</span>
+    <span class="layer-owner">Kaylee · Sofia · Tom</span>
+  </div>
+  <div class="cell tools-cell" id="cell-tools-1"></div>
+  <div class="cell tools-cell" id="cell-tools-2"></div>
+  <div class="cell tools-cell" id="cell-tools-3"></div>
+
+  <!-- ROW 2: PMM -->
   <div class="row-label pmm">
     <span class="layer-icon">🔬</span>
     <span class="layer-name">Research &amp; Positioning</span>
@@ -951,7 +961,7 @@
   <div class="cell pmm-cell" id="cell-pmm-2"></div>
   <div class="cell pmm-cell" id="cell-pmm-3"></div>
 
-  <!-- ROW 2: Content -->
+  <!-- ROW 3: Content -->
   <div class="row-label content">
     <span class="layer-icon">✏️</span>
     <span class="layer-name">Content &amp; Assets</span>
@@ -961,7 +971,7 @@
   <div class="cell content-cell" id="cell-content-2"></div>
   <div class="cell content-cell" id="cell-content-3"></div>
 
-  <!-- ROW 3: Growth -->
+  <!-- ROW 4: Growth -->
   <div class="row-label growth">
     <span class="layer-icon">📡</span>
     <span class="layer-name">Distribution Engine</span>
@@ -970,16 +980,6 @@
   <div class="cell growth-cell" id="cell-growth-1"></div>
   <div class="cell growth-cell" id="cell-growth-2"></div>
   <div class="cell growth-cell" id="cell-growth-3"></div>
-
-  <!-- ROW 4: Tools -->
-  <div class="row-label tools">
-    <span class="layer-icon">🔧</span>
-    <span class="layer-name">Tools &amp; AI Adoption</span>
-    <span class="layer-owner">Distributed ownership</span>
-  </div>
-  <div class="cell tools-cell" id="cell-tools-1"></div>
-  <div class="cell tools-cell" id="cell-tools-2"></div>
-  <div class="cell tools-cell" id="cell-tools-3"></div>
 
   <!-- ROW 5: Outcomes -->
   <div class="row-label outcomes">
@@ -1125,7 +1125,7 @@ const TAG_LABELS = { ai:'AI workflow', habit:'Habit change', tool:'Tool', metric
 const TEAM = ['','Kaylee Liu','Tom Hayward','Sofia Nilsson Burston','Kathy Shi','Lana Brindley','Colin Fung','Christina Peterson','Shauna Butcher'];
 const LAYER_NAMES = { pmm:'Research & Positioning (PMM)', content:'Content & Assets', growth:'Distribution Engine (Growth)', tools:'Tools & AI Adoption', outcomes:'Outcomes' };
 const COL_NAMES = { 1:'April: Discover & Decide', 2:'May: Build with AI', 3:'June: Launch' };
-const CELL_KEYS = ['pmm-1','pmm-2','pmm-3','content-1','content-2','content-3','growth-1','growth-2','growth-3','tools-1','tools-2','tools-3','outcomes-1','outcomes-2','outcomes-3'];
+const CELL_KEYS = ['tools-1','tools-2','tools-3','pmm-1','pmm-2','pmm-3','content-1','content-2','content-3','growth-1','growth-2','growth-3','outcomes-1','outcomes-2','outcomes-3'];
 const AVATAR_COLORS = ['#6322E5','#003338','#1A6B70','#F57F17','#283593','#AD1457','#00838F'];
 
 // ══════════════════════════════════════════════════════════════
@@ -1152,30 +1152,27 @@ const DEFAULT_DATA = { cells: {
   'pmm-3': [
     { id:'pm3a', isParent:true, title:'Positioning live + research cadence established', body:'June is execution, not discovery. Positioning is locked and accessible. Research runs on autopilot.', status:'planned', tag:'', assignee:'Sofia Nilsson Burston', dueDate:'Jun 9', isPlaceholder:false },
     { id:'pm3b', isParent:false, parentId:'pm3a', title:'B2B positioning published in Confluence', body:'Final approved positioning live as the team source of truth. All campaign and content assets reference this page.', status:'planned', tag:'habit', assignee:'Sofia Nilsson Burston', dueDate:'Jun 2', isPlaceholder:false },
-    { id:'pm3c', isParent:false, parentId:'pm3a', title:'Competitor monitoring running on schedule (Claude Code)', body:'Recurring scheduled task pulling competitor updates. Sofia reviews output weekly. Proves the AI research workflow in production.', status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'Jun 9', isPlaceholder:false },
-    { id:'pm3d', isParent:false, parentId:'pm3a', title:'ICP validation: mid-market vs enterprise — update based on pipeline', body:'By June we have real pipeline. Update ICP hypothesis with actual data. Sets up the next GTM cycle.', status:'planned', tag:'metric', assignee:'Kathy Shi', dueDate:'Jun 23', isPlaceholder:false }
+    { id:'pm3c', isParent:false, parentId:'pm3a', title:'Competitor monitoring running on schedule (Claude Code)', body:'Recurring scheduled task pulling competitor updates. Sofia reviews output weekly. Proves the AI research workflow in production.', status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'Jun 9', isPlaceholder:false }
   ],
 
   'content-1': [
-    { id:'co1a', isParent:true, title:'Content ops setup + B2B content audit', body:'Set up the production system before producing anything. Know what exists and what gaps the B2B launch needs to fill.', status:'building', tag:'habit', assignee:'Tom Hayward', dueDate:'Apr 28', isPlaceholder:false },
-    { id:'co1b', isParent:false, parentId:'co1a', title:'Content workflow live in ClickUp', body:'All requests, briefs, and production tracked in ClickUp with clear ownership and due dates. Replaces Slack-based coordination.', status:'building', tag:'habit', assignee:'Tom Hayward', dueDate:'Apr 7', isPlaceholder:false },
-    { id:'co1c', isParent:false, parentId:'co1a', title:'B2B content audit against buyer journey stages', body:'Map existing assets to awareness → consideration → decision. Identify what exists, what is missing, what needs updating for B2B.', status:'planned', tag:'', assignee:'Tom Hayward', dueDate:'Apr 21', isPlaceholder:false },
-    { id:'co1d', isParent:false, parentId:'co1a', title:'B2B content gap list agreed with Sofia', body:'Output of the audit: a prioritised list of what needs to be produced in May for the June launch. Sofia must review for PMM accuracy.', status:'planned', tag:'', assignee:'Sofia Nilsson Burston', dueDate:'Apr 28', isPlaceholder:false }
+    { id:'co1a', isParent:true, title:'Content production system: set up before producing anything', body:'The system is the work — not the individual pieces. Map the brief-to-published workflow, agree what AI draft quality looks like, get it connected to Airtable and ClickUp before May.', status:'building', tag:'habit', assignee:'Tom Hayward', dueDate:'Apr 28', isPlaceholder:false },
+    { id:'co1b', isParent:false, parentId:'co1a', title:'Content workflow live in ClickUp', body:'All requests, briefs, and approvals tracked in ClickUp with clear owners and due dates. Replaces Slack-based coordination. This is the habit change that makes everything else possible.', status:'building', tag:'habit', assignee:'Tom Hayward', dueDate:'Apr 7', isPlaceholder:false },
+    { id:'co1c', isParent:false, parentId:'co1a', title:'B2B content brief template in Airtable', body:"Standard brief format that connects to Sofia's positioning work once it lands. Each B2B piece starts here — not in a Slack message. Enables the AI draft pipeline to pull consistent, structured inputs.", status:'planned', tag:'tool', assignee:'Tom Hayward', dueDate:'Apr 14', isPlaceholder:false },
+    { id:'co1d', isParent:false, parentId:'co1a', title:'B2B content audit + gap list agreed with Sofia', body:"Map existing assets to the B2B buyer journey. Identify what the launch needs that doesn't exist. Output: the May production queue, in priority order. Sofia reviews for PMM accuracy.", status:'planned', tag:'', assignee:'Sofia Nilsson Burston', dueDate:'Apr 28', isPlaceholder:false }
   ],
 
   'content-2': [
-    { id:'co2a', isParent:true, title:'Produce B2B content using AI-first workflow', body:'Every asset starts as an AI draft based on the May positioning framework. Tom and Lana refine — they do not start from scratch.', status:'planned', tag:'ai', assignee:'Tom Hayward', dueDate:'May 26', isPlaceholder:false },
-    { id:'co2b', isParent:false, parentId:'co2a', title:'2x B2B blog articles (AI draft → Lana refines)', body:"Lana's tool evaluation: use whichever AI writing tool she trialled in April. Lana owns this end-to-end as her first AI workflow.", status:'planned', tag:'ai', assignee:'Lana Brindley', dueDate:'May 19', isPlaceholder:false },
-    { id:'co2c', isParent:false, parentId:'co2a', title:'B2B one-pager PDF (AI draft → Colin designs)', body:'AI drafts copy from positioning framework. Colin designs. Tom project-manages. Ready for sales team by end of May.', status:'planned', tag:'ai', assignee:'Colin Fung', dueDate:'May 19', isPlaceholder:false },
-    { id:'co2d', isParent:false, parentId:'co2a', title:'3-part email nurture sequence', body:'AI drafts from positioning + interview data. Tom refines. Persona-specific — match to ICP hypothesis from April.', status:'planned', tag:'ai', assignee:'Tom Hayward', dueDate:'May 26', isPlaceholder:false },
-    { id:'co2e', isParent:false, parentId:'co2a', title:'Delivered newsletter: B2B launch feature', body:'Flagship content moment. Draft the launch story with AI, Tom writes the final version. Publish as part of the June campaign.', status:'planned', tag:'', assignee:'Tom Hayward', dueDate:'May 26', isPlaceholder:false }
+    { id:'co2a', isParent:true, title:'Produce B2B content through the AI workflow — testing the system is the goal', body:'Every piece produced in May runs through the Airtable brief → AI draft → review → ClickUp approval workflow. The B2B content IS the test. Document what breaks.', status:'planned', tag:'ai', assignee:'Tom Hayward', dueDate:'May 26', isPlaceholder:false },
+    { id:'co2b', isParent:false, parentId:'co2a', title:'AI draft pipeline: first full run', body:'Brief from Airtable → Claude/AI tool drafts → Lana edits for accuracy → Tom approves. The first run reveals where the workflow breaks down. Document it — that\'s the point.', status:'planned', tag:'ai', assignee:'Lana Brindley', dueDate:'May 12', isPlaceholder:false },
+    { id:'co2c', isParent:false, parentId:'co2a', title:'B2B blog (x2) + email sequence: three pieces run through the workflow', body:"Not 'write two blog posts'. Run the brief through the pipeline, review the AI output, edit for brand voice, publish. Track actual editing time vs starting from scratch — that's the data point.", status:'planned', tag:'ai', assignee:'Lana Brindley', dueDate:'May 19', isPlaceholder:false },
+    { id:'co2d', isParent:false, parentId:'co2a', title:'Delivered B2B launch feature: flagship content through the same workflow', body:'Higher stakes than a blog. Tom writes the final version — but structure and draft come from AI. If this works, the workflow scales to Delivered\'s most important pieces.', status:'planned', tag:'ai', assignee:'Tom Hayward', dueDate:'May 26', isPlaceholder:false }
   ],
 
   'content-3': [
-    { id:'co3a', isParent:true, title:'B2B content signed off + webinar prep underway', body:'All June launch content is approved and ready to deploy. Webinar content prep begins — it feeds from the same AI-built assets.', status:'planned', tag:'', assignee:'Tom Hayward', dueDate:'Jun 23', isPlaceholder:false },
+    { id:'co3a', isParent:true, title:'B2B content approved + content system validated for scale', body:'All June launch content is approved and ready. The system that produced it is documented and repeatable — not a one-time effort.', status:'planned', tag:'', assignee:'Tom Hayward', dueDate:'Jun 9', isPlaceholder:false },
     { id:'co3b', isParent:false, parentId:'co3a', title:'All B2B launch content reviewed and approved', body:'Shauna final sign-off on all assets before go-live. Content is locked for launch week.', status:'planned', tag:'', assignee:'Shauna Butcher', dueDate:'Jun 9', isPlaceholder:false },
-    { id:'co3c', isParent:false, parentId:'co3a', title:'Webinar slide deck draft (AI-assisted)', body:'Tom uses AI to draft the webinar narrative from the B2B positioning work. Demonstrates the process to the wider org on 21 July.', status:'planned', tag:'ai', assignee:'Tom Hayward', dueDate:'Jun 23', isPlaceholder:false },
-    { id:'co3d', isParent:false, parentId:'co3a', title:'Webinar email campaign brief (pre + post)', body:'Brief for the pre-webinar invite sequence and post-webinar follow-up. Kaylee campaigns, Tom writes.', status:'planned', tag:'', assignee:'Tom Hayward', dueDate:'Jun 23', isPlaceholder:false }
+    { id:'co3c', isParent:false, parentId:'co3a', title:'Webinar deck: AI-drafted from B2B positioning and early campaign data', body:"First test of AI for presentation content. Tom drafts the webinar narrative from May's positioning work and early campaign signals. Not a template — a workflow test that feeds the 21 July proof point.", status:'planned', tag:'ai', assignee:'Tom Hayward', dueDate:'Jun 23', isPlaceholder:false }
   ],
 
   'growth-1': [
@@ -1203,24 +1200,28 @@ const DEFAULT_DATA = { cells: {
   ],
 
   'tools-1': [
-    { id:'to1a', isParent:false, title:'AI tool trials underway — one per function', body:'Sofia: Claude Code for competitor monitoring. Tom/Lana: AI writing tools for first-draft production. Kaylee: Airtable + ClickUp automations. Criteria: does it save time on actual work? No sandbox.', status:'planned', tag:'ai', assignee:'Kaylee Liu', dueDate:'Apr 14', isPlaceholder:false },
-    { id:'to1b', isParent:false, title:'First AI-assisted output produced — any function', body:'The milestone is someone using AI to complete a real work task. Creates the reference point for the rest of the team.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'Apr 28', isPlaceholder:false }
+    { id:'to1a', isParent:true, title:'Map the workflows — define what AI will own and what humans will own', body:'Before anything is built in May, map the three key handoffs: research → content brief, content brief → production, campaign brief → distribution. ClickUp and Airtable are already the chosen tools — this month is about speccing how they connect.', status:'building', tag:'habit', assignee:'Kaylee Liu', dueDate:'Apr 21', isPlaceholder:false },
+    { id:'to1b', isParent:false, parentId:'to1a', title:'ClickUp + Airtable: system backbone confirmed live', body:"ClickUp tracks all work — briefs, approvals, campaign tasks. Airtable connects research data, content briefs, and campaign segments. Both already selected. Confirm they're connected and in use before May build begins.", status:'live', tag:'tool', assignee:'Kaylee Liu', dueDate:'Apr 7', isPlaceholder:false },
+    { id:'to1c', isParent:false, parentId:'to1a', title:'PMM → Sales enablement workflow mapped: Confluence → Airtable → Gamma', body:'Define what a Confluence positioning page needs to contain for Gamma to generate a usable sales deck without Sofia rewriting it. Sofia and Kaylee spec the data structure together. This mapping is the foundation of the May PoC.', status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'Apr 21', isPlaceholder:false },
+    { id:'to1d', isParent:false, parentId:'to1a', title:'Content production workflow mapped: brief → AI draft → review → publish', body:"Brief in Airtable → Claude/AI tool drafts → Lana/Tom review → ClickUp approval task → publish. Map the steps together. Agree what 'AI draft quality' looks like before May so there's no argument about it mid-build.", status:'planned', tag:'habit', assignee:'Tom Hayward', dueDate:'Apr 21', isPlaceholder:false }
   ],
 
   'tools-2': [
-    { id:'to2a', isParent:false, title:'Tool spend approved', body:'Shauna confirms any paid tool upgrades before June. Each person who proved the case in April gets their subscription. Max $100/month per person.', status:'planned', tag:'', assignee:'Shauna Butcher', dueDate:'May 5', isPlaceholder:false },
-    { id:'to2b', isParent:false, title:'AI embedded in B2B build — tools on live work, not in sandbox', body:'Every B2B asset produced in May should have an AI-assisted step. If a tool is not being used on real work by May 19, it gets replaced.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'May 19', isPlaceholder:false }
+    { id:'to2a', isParent:true, title:'Build and test each workflow — B2B launch is the first live run', body:'May is not setup. May is build and test. Each workflow runs against real B2B work. If it breaks, fix it here — not in June.', status:'planned', tag:'ai', assignee:'Kaylee Liu', dueDate:'May 26', isPlaceholder:false },
+    { id:'to2b', isParent:false, parentId:'to2a', title:'PMM → Sales enablement pipeline: MVP built, 5 decks produced', body:"Confluence B2B positioning → Airtable → Claude → Gamma. Run it 5 times. If Sofia has to rewrite the output, fix the structured input — don't patch the end. Goal: Shauna can use a deck without asking Sofia to edit it.", status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'May 26', isPlaceholder:false },
+    { id:'to2c', isParent:false, parentId:'to2a', title:'Content production workflow: first full run with B2B pieces', body:'B2B blog and email content run through the mapped workflow. Document what AI drafted vs what needed editing. The learning is as important as the output — it informs everything produced in June.', status:'planned', tag:'ai', assignee:'Lana Brindley', dueDate:'May 19', isPlaceholder:false },
+    { id:'to2d', isParent:false, parentId:'to2a', title:'Campaign workflow: ClickUp brief → Airtable segmentation → AI variants → approved', body:'One B2B brief → Airtable pulls cluster data → AI generates segment-specific variants → Kaylee approves. Tests end-to-end campaign automation before June go-live.', status:'planned', tag:'ai', assignee:'Kaylee Liu', dueDate:'May 19', isPlaceholder:false }
   ],
 
   'tools-3': [
-    { id:'to3a', isParent:false, title:'Retro: time saved vs friction created', body:'A quick round-up from each person. Feeds the next planning cycle and the July webinar narrative about what AI actually delivered.', status:'planned', tag:'metric', assignee:'Kaylee Liu', dueDate:'Jun 16', isPlaceholder:false }
+    { id:'to3a', isParent:false, title:'All three workflows in production — no manual handoffs remaining', body:'Research → Content → Campaign. Each step passes through the system. If a handoff is still manual, it\'s a documented exception, not the default.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'Jun 9', isPlaceholder:false },
+    { id:'to3b', isParent:false, title:'Retro: what the system automated vs what stayed manual', body:'Honest numbers for the July webinar. Time saved, steps eliminated, output quality delta. The narrative Kaylee presents on 21 July is grounded in real data, not theory.', status:'planned', tag:'metric', assignee:'Kaylee Liu', dueDate:'Jun 23', isPlaceholder:false }
   ],
 
   'outcomes-1': [
     { id:'ou1a', isParent:false, title:'Leadership aligned: B2B launch = proof of AI-powered GTM', body:'This is the framing agreed in the leadership session. B2B is not a separate project — it is how we demonstrate the AI system works.', status:'outcome', tag:'metric', assignee:'Shauna Butcher', dueDate:'Apr 7', isPlaceholder:false },
     { id:'ou1d', isParent:false, title:'Shauna models ClickUp-first — not Slack', body:'How leadership works sets the standard for how the team works. ClickUp-first coordination from Shauna in April gives everyone the signal that the shift is real — and the permission to work that way too.', status:'planned', tag:'habit', assignee:'Shauna Butcher', dueDate:'Apr 14', isPlaceholder:false },
-    { id:'ou1c', isParent:false, title:'OKRs documented as structured, queryable asset', body:'Campaign success metrics are defined from OKRs — not set informally each time. OKRs live in a structured format (Airtable or Confluence) that the campaign planning workflow can reference. Shauna to confirm format before May build.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'May 5', isPlaceholder:false },
-    { id:'ou1b', isParent:false, title:'30-day PoC: 5 B2B sales decks, Gamma-generated, PMM-reviewed', body:'Sofia and Kaylee co-build the Confluence → Airtable → Gamma workflow. This fits alongside the B2B GTM work Sofia is already leading — the intent is to give her a better way to do that work, not add to it. PMM reviews the output but does not produce it. The goal: Shauna can use one deck without asking Sofia to edit it.', status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'May 5', isPlaceholder:false }
+    { id:'ou1c', isParent:false, title:'OKRs documented as structured, queryable asset', body:'Campaign success metrics are defined from OKRs — not set informally each time. OKRs live in a structured format (Airtable or Confluence) that the campaign planning workflow can reference. Shauna to confirm format before May build.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'May 5', isPlaceholder:false }
   ],
 
   'outcomes-2': [
