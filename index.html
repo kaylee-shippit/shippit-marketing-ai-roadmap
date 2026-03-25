@@ -311,6 +311,47 @@
   }
   .endgame-stat strong { color: var(--dark); }
 
+  /* ── CLICKUP CONNECTIVE TISSUE ── */
+  .clickup-tissue {
+    background: #EEF2FF; border: 1.5px solid #C5CAE9;
+    border-radius: 10px; padding: 16px 20px; margin-bottom: 20px;
+  }
+  .ct-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+  .ct-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .ct-title { font-size: 14px; font-weight: 700; color: #283593; }
+  .ct-sub { font-size: 12px; color: #5C6BC0; margin-top: 2px; line-height: 1.5; }
+  .ct-flow {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 5px;
+    background: white; border-radius: 8px; padding: 10px 14px; margin-bottom: 10px;
+  }
+  .ct-node {
+    background: #F8F7FC; border: 1px solid #E0E0E0;
+    border-radius: 6px; padding: 4px 10px; font-size: 11px; color: var(--body);
+  }
+  .ct-node.ct-cu {
+    background: #283593; color: white; font-weight: 700; border-color: #283593;
+  }
+  .ct-arrow { color: #5C6BC0; font-weight: 700; font-size: 13px; }
+  .ct-note { font-size: 11px; color: #7986CB; line-height: 1.5; }
+
+  /* ── LAYER SYSTEM (CIRCULAR DIAGRAM) ── */
+  .layer-system-section {
+    display: flex; gap: 32px; align-items: center;
+    flex-wrap: wrap;
+  }
+  .layer-system-text { flex: 1; min-width: 260px; }
+  .layer-system-diagram { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .layer-stat-cards { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+  .layer-stat-card {
+    flex: 1; min-width: 130px; border-radius: 8px; padding: 10px 14px;
+  }
+  .layer-stat-card.stat-95 { background: rgba(0,51,56,0.06); }
+  .layer-stat-card.stat-5  { background: var(--purple-light); }
+  .layer-stat-title { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .layer-stat-card.stat-95 .layer-stat-title { color: var(--growth); }
+  .layer-stat-card.stat-5  .layer-stat-title { color: var(--purple); }
+  .layer-stat-body { font-size: 11px; color: var(--muted); line-height: 1.45; }
+
   /* ── PROOF OF CONCEPT CALLOUT ── */
   .poc-callout {
     background: var(--purple-light); border: 2px solid var(--purple);
@@ -358,6 +399,15 @@
   }
   .fab-edit:hover ~ .fab-edit-label,
   .fab-edit.active ~ .fab-edit-label { opacity: 1; }
+
+  /* ── VIEW TOGGLE ── */
+  .view-toggle-btn {
+    padding: 5px 12px; border-radius: 16px; font-size: 11px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border); background: var(--white);
+    color: var(--muted); font-family: inherit; transition: all 0.15s;
+  }
+  .view-toggle-btn:hover { border-color: var(--purple); color: var(--purple); }
+  .view-toggle-btn.active { background: var(--purple); color: white; border-color: var(--purple); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 1100px) { .roadmap-grid { grid-template-columns: 120px 1fr 1fr 1fr; } .endgame-layers { grid-template-columns: 1fr; } .layer-connector { display: none; } }
@@ -598,7 +648,7 @@
     The business will ask: <em>"How is Marketing getting more efficient with AI?"</em> The answer isn't a list of tools — it's a system where AI handles the hand-offs: the reformatting, the starting-from-scratch, the manual coordination between Research, Content, and Distribution. Every function redeploys to the work that actually moves pipeline.
   </div>
   <div class="endgame-subtext" style="margin-top:8px; color: var(--muted); font-size:13px;">
-    <strong style="color:var(--body)">The cost of not building this:</strong> more headcount pressure with flat output, more time spent on reformatting and coordination, and a harder answer to the board when they ask how Marketing is using AI. The people to build this already exist — what's missing is the system connecting them.
+    <strong style="color:var(--body)">The opportunity ahead:</strong> the team, the tools, and the proof points already exist. What this plan does is connect them — so Marketing can produce more, respond faster, and spend more time on the work that requires genuine human judgment.
   </div>
   <div class="endgame-proof">
     <span class="proof-badge">✓ Already proven with Delivered</span>
@@ -626,9 +676,9 @@
   <div class="governance-strip">
     <div class="gov-icon">🔒</div>
     <div>
-      <strong>Governance policy:</strong> No AI-generated asset leaves the building without PMM sign-off until the Airtable scoring system is trusted. This is the quality gate that makes the system safe to scale — not a bottleneck.
+      <strong>Quality gate:</strong> PMM reviews all AI-generated assets before they go out, until the Airtable scoring system is trusted. This is how the system earns confidence over time.
       &nbsp;·&nbsp;
-      <strong>Leadership role:</strong> For this to stick, Shauna coordinates tasks and approvals through ClickUp — not Slack. The team follows leadership. ClickUp-first starts at the top.
+      <strong>How we make it stick:</strong> ClickUp-first coordination from leadership gives the team a clear signal that the new way of working is real. That's the most important habit to establish in April.
     </div>
   </div>
 
@@ -644,8 +694,8 @@
         </div>
       </div>
       <div class="layer-today">
-        <div class="layer-section-label">Today's bottleneck</div>
-        Research lives in Confluence decks and slides. Turning positioning into battle cards, one-pagers, or objection handlers is a manual, multi-person effort every time — and every piece has to go back through PMM to stay accurate.
+        <div class="layer-section-label">How it works today</div>
+        Research lives in Confluence decks and slides. Turning positioning into battle cards, one-pagers, or objection handlers requires coordinating across multiple people each time — a time-consuming process that can slow down the sales team.
       </div>
       <div class="layer-workflow">
         <div class="layer-section-label">With AI: Self-serve enablement, always fresh</div>
@@ -666,7 +716,7 @@
       </div>
       <div class="layer-payoff">
         <div class="layer-section-label">What you get back</div>
-        Sofia and Kathy stop being the bottleneck for every asset request. Their time shifts to primary research, relationships, and market sensing — the work that no AI can source. The system produces the collateral; PMM maintains the truth it runs on.
+        Sofia and Kathy's time shifts toward primary research, relationships, and market sensing — the work no AI can replace. The system handles individual asset production; PMM sets the standard it runs on.
       </div>
     </div>
 
@@ -682,8 +732,8 @@
         </div>
       </div>
       <div class="layer-today">
-        <div class="layer-section-label">Today's bottleneck</div>
-        Every asset starts from a blank page. Others in the business brief Tom and Lana ad hoc — no single place to see what's needed, what's in flight, or what the opportunity is. One interview = one output, manually, each time.
+        <div class="layer-section-label">How it works today</div>
+        Every asset starts from a blank page. Requests come in from across the business without a consistent structure — making it hard for Tom and Lana to prioritise, plan ahead, or see the full picture of what's needed.
       </div>
       <div class="layer-workflow">
         <div class="layer-section-label">With AI: Always-on content pipeline</div>
@@ -698,13 +748,13 @@
           <div class="mini-arrow">→</div>
           <div class="mini-node">✓ → ClickUp task, auto-created</div>
         </div>
-        <div class="layer-subtext">The pipeline is a live, always-on list of blog ideas, Delivered angles, and Knowledge Base articles — surfaced from both AI-monitored signals and primary research. Tom and Lana have one place to review opportunities. When something is approved, it creates a ClickUp task automatically — no manual briefing, no Slack hand-off. The pipeline replaces the inbox.</div>
+        <div class="layer-subtext">The pipeline is a live, always-on list of blog ideas, Delivered angles, and Knowledge Base articles — surfaced from both AI-monitored signals and primary research. Tom and Lana have one place to review opportunities. When something is approved, it creates a ClickUp task automatically — no manual briefing, no Slack hand-off. The tools to build this are already in the team's hands: Claude and ClickUp. The work is setting up the workflows that connect Research, Content, and Distribution.</div>
       </div>
       <div class="layer-tools">
         <span class="tool-pill confirmed">Claude Code ✓</span>
-        <span class="tool-pill confirmed">beehiiv ✓</span>
         <span class="tool-pill confirmed">ClickUp ✓</span>
-        <span class="tool-pill evaluating">Content AI tool — evaluating Apr</span>
+        <span class="tool-pill confirmed">beehiiv ✓</span>
+        <span class="tool-pill evaluating">Workflow setup — May build</span>
       </div>
       <div class="layer-payoff">
         <div class="layer-section-label">What you get back</div>
@@ -724,8 +774,8 @@
         </div>
       </div>
       <div class="layer-today">
-        <div class="layer-section-label">Today's bottleneck</div>
-        Campaign briefs written from scratch each time. Messaging adapted manually per cluster. Tasks created manually in ClickUp. Goals set informally. No clear link from campaign to OKR — and no automated trail from brief to go-live.
+        <div class="layer-section-label">How it works today</div>
+        Campaign briefs written from scratch each time. Messaging adapted manually per segment. Tasks and goals set informally, with coordination spread across Slack, email, and ClickUp — making it hard to maintain a clear picture from brief to launch.
       </div>
       <div class="layer-workflow">
         <div class="layer-section-label">With AI: From inputs to execution automatically</div>
@@ -754,9 +804,85 @@
 
   </div>
 
-  <div class="endgame-stat">
-    <strong>95% of B2B buyers aren't in-market at any given time</strong> — Ehrenberg-Bass Institute via LinkedIn B2B Institute.
-    This system serves both: the 95% with always-on content at scale, and the 5% with conversion-ready enablement. Consistently, at pace, across more formats than the team could produce manually.
+  <!-- ClickUp connective tissue -->
+  <div class="clickup-tissue">
+    <div class="ct-header">
+      <div class="ct-icon">🔗</div>
+      <div>
+        <div class="ct-title">ClickUp is the connective tissue</div>
+        <div class="ct-sub">Each layer feeds the next automatically — no Slack, no manual briefing, no chasing hand-offs across tools.</div>
+      </div>
+    </div>
+    <div class="ct-flow">
+      <div class="ct-node">Research insight or content signal</div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-node ct-cu">ClickUp task created automatically</div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-node">Tom or Lana picks it up</div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-node">Content approved</div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-node ct-cu">Campaign task created with OKR metrics</div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-node">Campaign live</div>
+    </div>
+    <div class="ct-note">Airtable (Research) → Claude → ClickUp task &nbsp;|&nbsp; Content pipeline ✓ → ClickUp brief task &nbsp;|&nbsp; Campaign QA approved → ClickUp tasks + success metrics auto-assigned from OKRs</div>
+  </div>
+
+  <!-- Three-layer system + Ehrenberg-Bass -->
+  <div class="layer-system-section">
+    <div class="layer-system-text">
+      <div class="layer-section-label" style="margin-bottom:8px;">The three-layer system</div>
+      <div style="font-size:15px;font-weight:700;color:var(--dark);margin-bottom:10px;line-height:1.3;">Each layer feeds the next. AI handles the hand-offs between them.</div>
+      <p style="font-size:13px;color:var(--body);line-height:1.65;margin-bottom:10px;">
+        Primary research is the core — it's what makes everything else credible. Content turns that research into assets. Distribution gets those assets to the right people at the right time.
+      </p>
+      <p style="font-size:13px;color:var(--body);line-height:1.65;margin-bottom:14px;">
+        AI amplifies the output of each layer and automates the hand-offs between them. The result: a team that's more connected to the market — because primary research actually happens — and producing more output, because the administrative work is handled by the system.
+      </p>
+      <div class="layer-stat-cards">
+        <div class="layer-stat-card stat-95">
+          <div class="layer-stat-title">95% of B2B buyers</div>
+          <div class="layer-stat-body">Not in-market right now. Served by always-on awareness content from the Distribution Engine.</div>
+        </div>
+        <div class="layer-stat-card stat-5">
+          <div class="layer-stat-title">5% of B2B buyers</div>
+          <div class="layer-stat-body">Actively evaluating. Served by conversion-ready enablement from Research &amp; Positioning.</div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px;">Source: Ehrenberg-Bass Institute via LinkedIn B2B Institute</div>
+    </div>
+    <div class="layer-system-diagram">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" style="width:220px;height:220px;display:block;">
+        <defs>
+          <marker id="arrowPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#6322E5" opacity="0.45"/>
+          </marker>
+          <marker id="arrowTeal" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#1A6B70" opacity="0.45"/>
+          </marker>
+        </defs>
+        <!-- Outer ring: Distribution Engine -->
+        <circle cx="130" cy="130" r="120" fill="rgba(0,51,56,0.05)" stroke="#80A0A4" stroke-width="1.5"/>
+        <!-- Middle ring: Content -->
+        <circle cx="130" cy="130" r="78" fill="rgba(26,107,112,0.09)" stroke="#8BB5B8" stroke-width="1.5"/>
+        <!-- Inner ring: Research -->
+        <circle cx="130" cy="130" r="42" fill="#F3EEFB" stroke="#D4B8F9" stroke-width="2"/>
+        <!-- Flow arrows -->
+        <line x1="130" y1="87" x2="130" y2="55" stroke="#6322E5" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arrowPurple)"/>
+        <line x1="130" y1="51" x2="130" y2="19" stroke="#1A6B70" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arrowTeal)"/>
+        <!-- Inner label -->
+        <text x="130" y="125" text-anchor="middle" fill="#6322E5" font-size="8" font-weight="700" font-family="Inter,sans-serif">RESEARCH &amp;</text>
+        <text x="130" y="138" text-anchor="middle" fill="#6322E5" font-size="8" font-weight="700" font-family="Inter,sans-serif">POSITIONING</text>
+        <!-- Middle ring label -->
+        <text x="130" y="67" text-anchor="middle" fill="#1A6B70" font-size="8" font-weight="700" font-family="Inter,sans-serif">CONTENT &amp; ASSETS</text>
+        <!-- Outer ring label -->
+        <text x="130" y="22" text-anchor="middle" fill="#003338" font-size="8" font-weight="700" font-family="Inter,sans-serif">DISTRIBUTION ENGINE</text>
+        <!-- AI label on arrows -->
+        <text x="148" y="74" fill="#6322E5" font-size="8" font-style="italic" font-family="Inter,sans-serif" opacity="0.7">AI</text>
+        <text x="148" y="38" fill="#1A6B70" font-size="8" font-style="italic" font-family="Inter,sans-serif" opacity="0.7">AI</text>
+      </svg>
+    </div>
   </div>
 
 </div>
@@ -765,12 +891,19 @@
 <button id="fabEdit" class="fab-edit" onclick="toggleEditMode()" title="Toggle edit mode">✏️</button>
 <div class="fab-edit-label" id="fabLabel">Edit mode off</div>
 
-<!-- Phase legend -->
-<div class="phase-legend">
-  <div class="phase-tag"><span class="phase-num">Apr</span> Discover &amp; Decide</div>
-  <div class="phase-tag"><span class="phase-num">May</span> Build with AI</div>
-  <div class="phase-tag"><span class="phase-num">Jun</span> Launch</div>
-  <div class="phase-tag milestone"><span class="phase-num">Jul</span> Webinar · 21 July</div>
+<!-- View toggle + Phase legend -->
+<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px;">
+  <div class="phase-legend" style="margin-bottom:0;">
+    <div class="phase-tag"><span class="phase-num">Apr</span> Discover &amp; Decide</div>
+    <div class="phase-tag"><span class="phase-num">May</span> Build with AI</div>
+    <div class="phase-tag"><span class="phase-num">Jun</span> Launch</div>
+    <div class="phase-tag milestone"><span class="phase-num">Jul</span> Webinar · 21 July</div>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;">
+    <span style="font-size:11px;color:var(--muted);font-weight:600;">View:</span>
+    <button id="viewWorkstream" class="view-toggle-btn active" onclick="setViewMode('workstream')">By workstream</button>
+    <button id="viewDate" class="view-toggle-btn" onclick="setViewMode('date')">By due date</button>
+  </div>
 </div>
 <div class="phase-note">Deadline-driven — B2B launch is the first live test of the AI-powered GTM process. April: ICP research + tooling decisions. May: AI-assisted build. June: launch. Webinar 21 July is the external forcing function.</div>
 
@@ -1067,9 +1200,9 @@ const DEFAULT_DATA = { cells: {
 
   'outcomes-1': [
     { id:'ou1a', isParent:false, title:'Leadership aligned: B2B launch = proof of AI-powered GTM', body:'This is the framing agreed in the leadership session. B2B is not a separate project — it is how we demonstrate the AI system works.', status:'outcome', tag:'metric', assignee:'Shauna Butcher', dueDate:'Apr 7', isPlaceholder:false },
-    { id:'ou1d', isParent:false, title:'Shauna models ClickUp-first — not Slack', body:'The single most important adoption signal in April. If leadership coordinates tasks and approvals through ClickUp, the team follows. If it stays in Slack, the system does not stick.', status:'planned', tag:'habit', assignee:'Shauna Butcher', dueDate:'Apr 14', isPlaceholder:false },
+    { id:'ou1d', isParent:false, title:'Shauna models ClickUp-first — not Slack', body:'How leadership works sets the standard for how the team works. ClickUp-first coordination from Shauna in April gives everyone the signal that the shift is real — and the permission to work that way too.', status:'planned', tag:'habit', assignee:'Shauna Butcher', dueDate:'Apr 14', isPlaceholder:false },
     { id:'ou1c', isParent:false, title:'OKRs documented as structured, queryable asset', body:'Campaign success metrics are defined from OKRs — not set informally each time. OKRs live in a structured format (Airtable or Confluence) that the campaign planning workflow can reference. Shauna to confirm format before May build.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'May 5', isPlaceholder:false },
-    { id:'ou1b', isParent:false, title:'30-day PoC: 5 B2B sales decks, Gamma-generated, PMM-reviewed', body:'Sofia and Kaylee co-build the Confluence → Airtable → Gamma workflow. PMM reviews the output but does not produce it. Shauna can use one deck without asking Sofia to edit it. This is the first real answer to "how is Marketing using AI?".', status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'Apr 28', isPlaceholder:false }
+    { id:'ou1b', isParent:false, title:'30-day PoC: 5 B2B sales decks, Gamma-generated, PMM-reviewed', body:'Sofia and Kaylee co-build the Confluence → Airtable → Gamma workflow. This fits alongside the B2B GTM work Sofia is already leading — the intent is to give her a better way to do that work, not add to it. PMM reviews the output but does not produce it. The goal: Shauna can use one deck without asking Sofia to edit it.', status:'planned', tag:'ai', assignee:'Sofia Nilsson Burston', dueDate:'May 5', isPlaceholder:false }
   ],
 
   'outcomes-2': [
@@ -1091,6 +1224,7 @@ const DEFAULT_DATA = { cells: {
 
 let state = {};
 let editMode = false;
+let viewMode = 'workstream';
 let dragState = { cardId: null, sourceCellKey: null };
 let editTarget = { cardId: null, cellKey: null, isNew: false };
 
@@ -1206,6 +1340,7 @@ function dueDateClass(str) {
 // ══════════════════════════════════════════════════════════════
 
 function render() {
+  if (viewMode === 'date') { renderByDate(); return; }
   CELL_KEYS.forEach(key => {
     const cellEl = document.getElementById('cell-' + key);
     if (!cellEl) return;
@@ -1348,6 +1483,43 @@ function toggleWorkstream(parentId) {
 
 // mkCard kept as alias so modal/CRUD code still works
 function mkCard(card, cellKey) { return mkStandaloneCard(card, cellKey); }
+
+function renderByDate() {
+  CELL_KEYS.forEach(key => {
+    const cellEl = document.getElementById('cell-' + key);
+    if (!cellEl) return;
+    cellEl.innerHTML = '';
+    const cards = state.cells[key] || [];
+    const sorted = [...cards].sort((a,b) => compareDates(a.dueDate, b.dueDate));
+    sorted.forEach(card => {
+      const el = mkStandaloneCard(card, key);
+      if (card.parentId) {
+        const parent = cards.find(c => c.id === card.parentId);
+        if (parent) {
+          const lbl = document.createElement('div');
+          lbl.style.cssText = 'font-size:9px;color:var(--purple);font-weight:700;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.3px;opacity:0.8;';
+          lbl.textContent = '↳ ' + (parent.title.length > 44 ? parent.title.substring(0,44)+'…' : parent.title);
+          const actionsDiv = el.querySelector('.card-actions');
+          if (actionsDiv && actionsDiv.nextSibling) el.insertBefore(lbl, actionsDiv.nextSibling);
+          else el.appendChild(lbl);
+        }
+      }
+      cellEl.appendChild(el);
+    });
+    const addBtn = document.createElement('button');
+    addBtn.className = 'add-card-btn';
+    addBtn.textContent = '+ Add card';
+    addBtn.addEventListener('click', () => addCard(key));
+    cellEl.appendChild(addBtn);
+  });
+}
+
+function setViewMode(mode) {
+  viewMode = mode;
+  document.getElementById('viewWorkstream').classList.toggle('active', mode === 'workstream');
+  document.getElementById('viewDate').classList.toggle('active', mode === 'date');
+  render();
+}
 
 // ══════════════════════════════════════════════════════════════
 // DRAG AND DROP
