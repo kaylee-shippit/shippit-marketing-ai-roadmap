@@ -633,6 +633,7 @@
   </div>
   <div id="ghPageUrl" class="settings-url"></div>
   <div class="settings-actions">
+    <button class="btn-reset-link" onclick="reloadFromGitHub()">↻ Reload from GitHub</button>
     <button class="btn-reset-link" onclick="resetToDefault()">Reset to original baseline</button>
     <button class="btn-primary" onclick="saveSettings()">Save settings</button>
   </div>
@@ -1272,13 +1273,18 @@ async function init() {
   if (!fromGH) {
     const fromLocal = loadFromLocalStorage();
     if (!fromLocal) state = deepClone(DEFAULT_DATA);
-    showSync(fromLocal ? 'Loaded locally' : 'Loaded baseline', 'local');
+    showSync(fromLocal ? 'Loaded locally — open ⚙ Settings and click "Reload from GitHub" to sync' : 'Loaded baseline', 'local');
   } else {
+    saveToLocalStorageOnly(); // keep localStorage in sync with GitHub
     showSync('Loaded from GitHub', 'ok');
   }
   render();
   setupDropZones();
   updateGhPageUrl();
+}
+
+function saveToLocalStorageOnly() {
+  localStorage.setItem('roadmap-data', JSON.stringify(state));
 }
 
 function loadFromLocalStorage() {
@@ -1697,6 +1703,22 @@ function resetToDefault() {
   state = deepClone(DEFAULT_DATA); render(); saveToLocalStorage();
   document.getElementById('settingsPanel').style.display = 'none';
   showSync('Reset to original baseline', 'ok');
+}
+
+async function reloadFromGitHub() {
+  if (!ghConfig.owner || !ghConfig.repo || !ghConfig.pat) {
+    showSync('Configure GitHub credentials in Settings first', 'error'); return;
+  }
+  showSync('Reloading from GitHub…', 'saving');
+  const ok = await loadFromGitHub();
+  if (ok) {
+    saveToLocalStorageOnly();
+    render(); setupDropZones();
+    document.getElementById('settingsPanel').style.display = 'none';
+    showSync('Reloaded from GitHub', 'ok');
+  } else {
+    showSync('Could not load from GitHub — check credentials', 'error');
+  }
 }
 
 function showSync(msg, type) {
