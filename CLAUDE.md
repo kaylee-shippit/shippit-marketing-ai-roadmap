@@ -6,7 +6,7 @@ An interactive HTML roadmap board for Shippit's Growth Marketing function. It ma
 
 The owner is Kaylee Liu (Growth Marketing Manager). It's currently a draft awaiting alignment from Shauna Butcher (Head of Marketing). Placeholder cards are explicitly marked as "shape together" items.
 
-**Live deployment:** https://sparkling-hotteok-9a06de.netlify.app/
+**Live deployment:** https://kaylee-shippit.github.io/shippit-marketing-ai-roadmap
 
 ## Brand rules
 
@@ -48,10 +48,46 @@ The owner is Kaylee Liu (Growth Marketing Manager). It's currently a draft await
 ```
 ai-evolution-roadmap/
   CLAUDE.md          ← this file
-  index.html         ← the roadmap (single self-contained HTML file)
+  index.html         ← the interactive roadmap board (HTML + CSS + JS, all inline)
+  data.json          ← card state; read/written via GitHub API for shared collaboration
 ```
 
-The roadmap is a **single-file HTML document** — all CSS is inline in a `<style>` block. No external dependencies, no JavaScript, no build step. Just open it in a browser.
+The roadmap is a **two-file project**:
+- `index.html` — all HTML, CSS, and JavaScript inline. Open directly in a browser with no build step or server.
+- `data.json` — the card data store. On page load the board fetches this from GitHub and renders from it. On save it writes back. Falls back to the hardcoded `DEFAULT_DATA` baseline in the JS if GitHub is not configured.
+
+## Interactive features
+
+### Edit mode
+- **✏️ Edit** button in the header toggles edit mode. Controls are hidden by default for clean presentation.
+- In edit mode: hover a card to reveal pencil (edit) and × (delete) buttons. Double-click a card to open the edit modal.
+
+### Edit modal
+Fields: Title, Description, Status (live / building / planned / none), Tag, Assignee (dropdown from team roster), Placeholder toggle.
+
+### Drag and drop
+Cards are draggable across any cell in edit mode. Uses the native HTML5 Drag and Drop API — no external library.
+
+### Assignee chips
+Cards display a coloured avatar + name at the bottom when an assignee is set.
+
+### Add / delete cards
+- **+ Add card** button appears at the bottom of each cell in edit mode.
+- **×** on card hover deletes with a confirmation prompt.
+
+### GitHub sync
+- **💾 Save** pushes `data.json` to the configured GitHub repo via the Contents API. Each save creates a commit (free version history).
+- **⚙ Settings** panel — paste GitHub owner, repo, PAT, and branch once. Stored in `localStorage` per device, never committed to the repo.
+- On page load, the board auto-fetches the latest `data.json` from GitHub so everyone sees current state.
+
+### ClickUp export
+- **↗ Export to ClickUp** — copy as structured text (always available) or push cards directly to a ClickUp list via the REST API (requires a ClickUp API token and List ID).
+
+### Password gate
+- On page load, a full-screen gate prompts for the team password (`Shippit2026`). Auth is verified via SHA-256 and persisted in `sessionStorage` — the gate doesn't reappear until the browser tab is closed.
+
+### View toggle
+- **By workstream / By due date** toggle above the phase grid. Workstream view shows the swimlane hierarchy (parent + children). Date view flattens all cards sorted by due date, with a workstream label on child cards.
 
 ## HTML structure
 
@@ -70,14 +106,12 @@ The roadmap is a **single-file HTML document** — all CSS is inline in a `<styl
 - `.card-tag` — coloured tag at bottom (`.tag-ai`, `.tag-habit`, `.tag-tool`, `.tag-metric`)
 
 ### Below-grid sections
-1. **System flow** (`.flow-section`) — horizontal flow diagram showing PMM → AI → Content → AI → Distribution
-2. **ABM programs** (`.abm-section`) — 5-column grid of the active ABM programs
-3. **Channel outputs** (`.channels-section`) — auto-fill grid of distribution channels
-4. **Four focus areas** (`.flow-section`) — 4-column grid showing business focus areas
+1. **ClickUp connective tissue strip** (`.clickup-tissue`) — horizontal flow showing how tasks move from research to distribution via ClickUp automation
+2. **Endgame diagram** (`.endgame-section`) — three-layer system diagram (Research → Content → Distribution) with SVG concentric circle, tool pills, workflow flows, and a 30-day PoC callout
 
 ### Responsive breakpoints
-- `1100px` — grid narrows, ABM grid goes to 3 columns
-- `768px` — grid goes to 2 columns (label + 1), ABM/channels go to 2 columns
+- `1100px` — grid narrows
+- `768px` — grid goes to 2 columns (label + 1)
 
 ## Key concepts
 
@@ -90,19 +124,6 @@ The roadmap is a **single-file HTML document** — all CSS is inline in a `<styl
 1. **Foundations** — Habits first. First AI workflow live.
 2. **Content Flywheel** — AI pipeline generating across formats.
 3. **Full System** — End-to-end, cross-function, always-on.
-
-### Five ABM programs
-1. Trade & Industrial (NowGo)
-2. Perishables (NowGo)
-3. Bulky & Valuables (Shippit + NowGo)
-4. Pipeline Accelerator (Both)
-5. Territory Accelerator (Shippit)
-
-### Four business focus areas
-1. Land with Enterprise (Retail)
-2. Land with Trade
-3. Expand with Shipping
-4. Expand with B2B
 
 ### Card statuses
 - **Live** (green dot `#4CAF50`) — already operational
@@ -124,7 +145,7 @@ The roadmap is a **single-file HTML document** — all CSS is inline in a `<styl
 
 1. **Never fabricate facts or data** about Shippit, its customers, or product features. All facts must be verifiable via shippit.com or support.shippit.com or support.nowgo.io.
 2. **No green** — the content layer uses `#1A6B70` (teal derived from brand dark). If adding new colours, derive from the brand palette.
-3. **Keep it single-file** — all CSS stays in the `<style>` block. No external files.
+3. **Two files only** — `index.html` (all CSS and JS inline) and `data.json` (card state). No other files, no external dependencies, no build step.
 4. **Placeholder cards are intentional** — they signal items that need team input. Don't fill them in with made-up content.
 5. **Australian English** — "colour" not "color" in copy (CSS properties obviously stay American per spec), "optimisation", "personalisation", "behaviour", etc.
 6. **Concise card copy** — each card body should be 1-2 sentences max. If it needs more, it's probably two cards.
