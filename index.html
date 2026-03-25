@@ -340,7 +340,7 @@
     flex-wrap: wrap;
   }
   .layer-system-text { flex: 1; min-width: 260px; }
-  .layer-system-diagram { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .layer-system-diagram { flex-shrink: 0; display: flex; align-items: center; justify-content: center; min-width: 300px; max-width: 460px; width: 100%; }
   .layer-stat-cards { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
   .layer-stat-card {
     flex: 1; min-width: 130px; border-radius: 8px; padding: 10px 14px;
@@ -603,7 +603,6 @@
   </div>
   <div class="header-actions">
     <button id="editToggleBtn" class="header-btn btn-outline" onclick="toggleEditMode()">✏️ Edit</button>
-    <button id="saveBtn" class="header-btn btn-ghost" onclick="saveToGitHub()">💾 Save</button>
     <button class="header-btn btn-ghost" onclick="openClickUpModal()">↗ Export to ClickUp</button>
     <button id="settingsBtn" class="header-btn btn-ghost" onclick="toggleSettings()">⚙ Settings</button>
   </div>
@@ -840,47 +839,74 @@
       <p style="font-size:13px;color:var(--body);line-height:1.65;margin-bottom:14px;">
         AI amplifies the output of each layer and automates the hand-offs between them. The result: a team that's more connected to the market — because primary research actually happens — and producing more output, because the administrative work is handled by the system.
       </p>
-      <div class="layer-stat-cards">
-        <div class="layer-stat-card stat-95">
-          <div class="layer-stat-title">95% of B2B buyers</div>
-          <div class="layer-stat-body">Not in-market right now. Served by always-on awareness content from the Distribution Engine.</div>
-        </div>
-        <div class="layer-stat-card stat-5">
-          <div class="layer-stat-title">5% of B2B buyers</div>
-          <div class="layer-stat-body">Actively evaluating. Served by conversion-ready enablement from Research &amp; Positioning.</div>
-        </div>
-      </div>
-      <div style="font-size:10px;color:var(--muted);margin-top:8px;">Source: Ehrenberg-Bass Institute via LinkedIn B2B Institute</div>
     </div>
     <div class="layer-system-diagram">
-      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" style="width:220px;height:220px;display:block;">
+      <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;height:auto;display:block;margin:0 auto;">
         <defs>
           <marker id="arrowPurple" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 z" fill="#6322E5" opacity="0.45"/>
+            <path d="M0,0 L0,6 L6,3 z" fill="#6322E5" opacity="0.5"/>
           </marker>
           <marker id="arrowTeal" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-            <path d="M0,0 L0,6 L6,3 z" fill="#1A6B70" opacity="0.45"/>
+            <path d="M0,0 L0,6 L6,3 z" fill="#1A6B70" opacity="0.5"/>
           </marker>
         </defs>
+
         <!-- Outer ring: Distribution Engine -->
-        <circle cx="130" cy="130" r="120" fill="rgba(0,51,56,0.05)" stroke="#80A0A4" stroke-width="1.5"/>
-        <!-- Middle ring: Content -->
-        <circle cx="130" cy="130" r="78" fill="rgba(26,107,112,0.09)" stroke="#8BB5B8" stroke-width="1.5"/>
-        <!-- Inner ring: Research -->
-        <circle cx="130" cy="130" r="42" fill="#F3EEFB" stroke="#D4B8F9" stroke-width="2"/>
-        <!-- Flow arrows -->
-        <line x1="130" y1="87" x2="130" y2="55" stroke="#6322E5" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arrowPurple)"/>
-        <line x1="130" y1="51" x2="130" y2="19" stroke="#1A6B70" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5" marker-end="url(#arrowTeal)"/>
-        <!-- Inner label -->
-        <text x="130" y="125" text-anchor="middle" fill="#6322E5" font-size="8" font-weight="700" font-family="Inter,sans-serif">RESEARCH &amp;</text>
-        <text x="130" y="138" text-anchor="middle" fill="#6322E5" font-size="8" font-weight="700" font-family="Inter,sans-serif">POSITIONING</text>
-        <!-- Middle ring label -->
-        <text x="130" y="67" text-anchor="middle" fill="#1A6B70" font-size="8" font-weight="700" font-family="Inter,sans-serif">CONTENT &amp; ASSETS</text>
-        <!-- Outer ring label -->
-        <text x="130" y="22" text-anchor="middle" fill="#003338" font-size="8" font-weight="700" font-family="Inter,sans-serif">DISTRIBUTION ENGINE</text>
-        <!-- AI label on arrows -->
-        <text x="148" y="74" fill="#6322E5" font-size="8" font-style="italic" font-family="Inter,sans-serif" opacity="0.7">AI</text>
-        <text x="148" y="38" fill="#1A6B70" font-size="8" font-style="italic" font-family="Inter,sans-serif" opacity="0.7">AI</text>
+        <circle cx="240" cy="240" r="225" fill="rgba(0,51,56,0.04)" stroke="#80A0A4" stroke-width="1.5"/>
+        <!-- Middle ring: Content & Assets -->
+        <circle cx="240" cy="240" r="152" fill="rgba(26,107,112,0.08)" stroke="#8BB5B8" stroke-width="1.5"/>
+        <!-- Inner ring: Research & Positioning -->
+        <circle cx="240" cy="240" r="82" fill="#F3EEFB" stroke="#D4B8F9" stroke-width="2"/>
+
+        <!-- Flow arrows (outward, from inner ring to outer) -->
+        <line x1="240" y1="157" x2="240" y2="118" stroke="#6322E5" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.5" marker-end="url(#arrowPurple)"/>
+        <line x1="240" y1="87" x2="240" y2="44" stroke="#1A6B70" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.5" marker-end="url(#arrowTeal)"/>
+        <text x="256" y="142" fill="#6322E5" font-size="9" font-style="italic" font-family="Inter,sans-serif" opacity="0.7">AI</text>
+        <text x="256" y="70" fill="#1A6B70" font-size="9" font-style="italic" font-family="Inter,sans-serif" opacity="0.7">AI</text>
+
+        <!-- ── INNER RING: Research & Positioning ── -->
+        <text x="240" y="228" text-anchor="middle" fill="#6322E5" font-size="11" font-weight="700" font-family="Inter,sans-serif">RESEARCH &amp;</text>
+        <text x="240" y="244" text-anchor="middle" fill="#6322E5" font-size="11" font-weight="700" font-family="Inter,sans-serif">POSITIONING</text>
+        <!-- Sub-items within inner ring -->
+        <text x="240" y="192" text-anchor="middle" fill="#6322E5" font-size="8.5" font-family="Inter,sans-serif" opacity="0.75">ICP interviews</text>
+        <text x="284" y="270" text-anchor="middle" fill="#6322E5" font-size="8.5" font-family="Inter,sans-serif" opacity="0.75">Competitor intel</text>
+        <text x="196" y="270" text-anchor="middle" fill="#6322E5" font-size="8.5" font-family="Inter,sans-serif" opacity="0.75">Pipeline data</text>
+
+        <!-- ── CONTENT BAND (r 82–152, midpoint r≈117) ── -->
+        <!-- Title at top of band -->
+        <text x="240" y="112" text-anchor="middle" fill="#1A6B70" font-size="10.5" font-weight="700" font-family="Inter,sans-serif">CONTENT &amp; ASSETS</text>
+        <!-- Items distributed around band at r≈117 -->
+        <!-- NE ~50°: (240+89.7, 240-74.9) = (330, 165) -->
+        <text x="334" y="168" text-anchor="middle" fill="#1A6B70" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Sales decks (Gamma)</text>
+        <!-- E ~95°: (240+116.6, 240-10.2) = (357, 230) -->
+        <text x="360" y="233" text-anchor="middle" fill="#1A6B70" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Email sequences</text>
+        <!-- SE ~140°: (240+75.2, 240+89.7) = (315, 330) -->
+        <text x="316" y="333" text-anchor="middle" fill="#1A6B70" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">One-pager PDF</text>
+        <!-- S ~190°: (240-20.3, 240+115.2) = (220, 355) -->
+        <text x="240" y="358" text-anchor="middle" fill="#1A6B70" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Delivered newsletter</text>
+        <!-- SW ~250°: (240-110.1, 240+40.0) = (130, 280) -->
+        <text x="142" y="333" text-anchor="middle" fill="#1A6B70" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Blog articles</text>
+        <!-- W ~300°: (240-101.3, 240-58.5) = (139, 182) -->
+        <text x="120" y="233" text-anchor="middle" fill="#1A6B70" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Webinar content</text>
+
+        <!-- ── DISTRIBUTION BAND (r 152–225, midpoint r≈188) ── -->
+        <!-- Title at very top -->
+        <text x="240" y="44" text-anchor="middle" fill="#003338" font-size="11" font-weight="700" font-family="Inter,sans-serif">DISTRIBUTION ENGINE</text>
+        <!-- Items distributed around outer band at r≈188 -->
+        <!-- NE ~38°: (240+115.8, 240-148.2) = (356, 92) -->
+        <text x="358" y="92" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">LinkedIn paid + organic</text>
+        <!-- E ~85°: (240+187.3, 240-16.4) = (427, 224) -->
+        <text x="424" y="190" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Email nurture</text>
+        <!-- SE ~130°: (240+144.1, 240+120.9) = (384, 361) -->
+        <text x="382" y="362" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">ABM programs</text>
+        <!-- S ~180°: (240, 240+188) = (240, 428) -->
+        <text x="240" y="428" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Sales activation</text>
+        <!-- SW ~230°: (240-144.1, 240+120.9) = (96, 361) -->
+        <text x="98" y="362" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Webinar</text>
+        <!-- W ~275°: (240-187.3, 240+16.4) = (53, 256) -->
+        <text x="52" y="190" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Customer.io / beehiiv</text>
+        <!-- NW ~322°: (240-115.8, 240-148.2) = (124, 92) -->
+        <text x="122" y="92" text-anchor="middle" fill="#003338" font-size="8.5" font-family="Inter,sans-serif" opacity="0.82">Retargeting</text>
       </svg>
     </div>
   </div>
@@ -1177,25 +1203,17 @@ const DEFAULT_DATA = { cells: {
   ],
 
   'tools-1': [
-    { id:'to1a', isParent:true, title:'Tool evaluation: criteria, trials, comparison matrix', body:'No tool is selected yet. Each team member owns their own evaluation. Kaylee coordinates the process — does not lead every trial.', status:'building', tag:'', assignee:'Kaylee Liu', dueDate:'May 5', isPlaceholder:false },
-    { id:'to1b', isParent:false, parentId:'to1a', title:'Use cases + evaluation criteria agreed across the team', body:'Document what each person needs to do their job better. This drives the shortlist — not vendor marketing. Define criteria: capability, cost, security, integration.', status:'building', tag:'habit', assignee:'Kaylee Liu', dueDate:'Apr 7', isPlaceholder:false },
-    { id:'to1c', isParent:false, parentId:'to1a', title:'Research & intelligence tools trial — Sofia leads', body:"Sofia evaluates: Claude Code, Perplexity, or equivalent. Focus: competitive monitoring + research synthesis. Sofia presents findings — not a handoff to Kaylee.", status:'planned', tag:'tool', assignee:'Sofia Nilsson Burston', dueDate:'Apr 14', isPlaceholder:false },
-    { id:'to1d', isParent:false, parentId:'to1a', title:'Content production AI tools trial — Tom + Lana lead', body:'Tom and Lana evaluate: AI writing/editing tools. Focus: first-draft quality, brand voice adherence, speed. They present findings independently.', status:'planned', tag:'tool', assignee:'Lana Brindley', dueDate:'Apr 14', isPlaceholder:false },
-    { id:'to1e', isParent:false, parentId:'to1a', title:'Campaign & workflow automation tools trial — Kaylee leads', body:'Kaylee evaluates: ClickUp AI, Airtable automations, or equivalent campaign tools. Focused on reducing manual briefing and reporting effort.', status:'planned', tag:'tool', assignee:'Kaylee Liu', dueDate:'Apr 14', isPlaceholder:false },
-    { id:'to1f', isParent:false, parentId:'to1a', title:'Comparison matrix complete — no assumed winner', body:'Each owner completes their own comparison matrix. Score against agreed criteria. Present side-by-side at May 5 leadership review.', status:'planned', tag:'', assignee:'Kaylee Liu', dueDate:'May 5', isPlaceholder:false }
+    { id:'to1a', isParent:false, title:'AI tool trials underway — one per function', body:'Sofia: Claude Code for competitor monitoring. Tom/Lana: AI writing tools for first-draft production. Kaylee: Airtable + ClickUp automations. Criteria: does it save time on actual work? No sandbox.', status:'planned', tag:'ai', assignee:'Kaylee Liu', dueDate:'Apr 14', isPlaceholder:false },
+    { id:'to1b', isParent:false, title:'First AI-assisted output produced — any function', body:'The milestone is someone using AI to complete a real work task. Creates the reference point for the rest of the team.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'Apr 28', isPlaceholder:false }
   ],
 
   'tools-2': [
-    { id:'to2a', isParent:true, title:'Tool decision, procurement + team onboarding', body:'May 5: each owner presents. Leadership approves budget. Procurement runs in parallel. By May 19, tools are in hands and being used on the B2B GTM — not in a sandbox.', status:'planned', tag:'', assignee:'Shauna Butcher', dueDate:'May 19', isPlaceholder:false },
-    { id:'to2b', isParent:false, parentId:'to2a', title:'Each owner presents tool recommendation to leadership', body:'Sofia, Tom/Lana, and Kaylee each present their recommendation with the comparison matrix. Shauna approves or challenges.', status:'planned', tag:'', assignee:'Shauna Butcher', dueDate:'May 5', isPlaceholder:false },
-    { id:'to2c', isParent:false, parentId:'to2a', title:'Budget approval confirmed', body:'Shauna signs off on tool spend. Each owner knows their approved budget and can proceed to procurement independently.', status:'planned', tag:'', assignee:'Shauna Butcher', dueDate:'May 5', isPlaceholder:false },
-    { id:'to2d', isParent:false, parentId:'to2a', title:'Procurement + account setup (each owner manages their own)', body:'Each person procures and sets up the tool they recommended. No handoff to Kaylee. This builds the technical confidence the team needs.', status:'planned', tag:'tool', assignee:'Kaylee Liu', dueDate:'May 12', isPlaceholder:false },
-    { id:'to2e', isParent:false, parentId:'to2a', title:'Team onboarding — B2B GTM is the first live project', body:'No sandbox training. Each person uses their selected tool on actual B2B GTM work in May. Learning happens by doing.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'May 19', isPlaceholder:false }
+    { id:'to2a', isParent:false, title:'Tool spend approved', body:'Shauna confirms any paid tool upgrades before June. Each person who proved the case in April gets their subscription. Max $100/month per person.', status:'planned', tag:'', assignee:'Shauna Butcher', dueDate:'May 5', isPlaceholder:false },
+    { id:'to2b', isParent:false, title:'AI embedded in B2B build — tools on live work, not in sandbox', body:'Every B2B asset produced in May should have an AI-assisted step. If a tool is not being used on real work by May 19, it gets replaced.', status:'planned', tag:'habit', assignee:'Kaylee Liu', dueDate:'May 19', isPlaceholder:false }
   ],
 
   'tools-3': [
-    { id:'to3a', title:'All selected tools operational for B2B launch', body:'Confirm every tool selected in May is active and being used in production for the June campaign execution.', status:'planned', tag:'', assignee:'Kaylee Liu', dueDate:'Jun 2', isPlaceholder:false, isParent:false },
-    { id:'to3b', title:'Tools-in-use feedback log: what is working, what is not', body:'Simple log from each owner: what saved time, what created friction, what needs changing. Input for next planning cycle.', status:'planned', tag:'metric', assignee:'Kaylee Liu', dueDate:'Jun 16', isPlaceholder:false, isParent:false }
+    { id:'to3a', isParent:false, title:'Retro: time saved vs friction created', body:'A quick round-up from each person. Feeds the next planning cycle and the July webinar narrative about what AI actually delivered.', status:'planned', tag:'metric', assignee:'Kaylee Liu', dueDate:'Jun 16', isPlaceholder:false }
   ],
 
   'outcomes-1': [
@@ -1267,7 +1285,15 @@ function loadFromLocalStorage() {
   try { const s = localStorage.getItem('roadmap-data'); if (s) { state = JSON.parse(s); return true; } } catch(e) {}
   return false;
 }
-function saveToLocalStorage() { localStorage.setItem('roadmap-data', JSON.stringify(state)); }
+let _autoSaveTimer = null;
+function saveToLocalStorage() {
+  localStorage.setItem('roadmap-data', JSON.stringify(state));
+  if (ghConfig.owner && ghConfig.repo && ghConfig.pat) {
+    showSync('Unsaved changes…', 'saving');
+    clearTimeout(_autoSaveTimer);
+    _autoSaveTimer = setTimeout(() => saveToGitHub(), 4000);
+  }
+}
 
 async function loadFromGitHub() {
   if (!ghConfig.owner || !ghConfig.repo) return false;
@@ -1282,14 +1308,8 @@ async function loadFromGitHub() {
 }
 
 async function saveToGitHub() {
-  if (!ghConfig.owner || !ghConfig.repo || !ghConfig.pat) {
-    showSync('Open ⚙ Settings to configure GitHub first', 'error');
-    document.getElementById('settingsPanel').style.display = 'block';
-    return;
-  }
-  const btn = document.getElementById('saveBtn');
-  btn.disabled = true; btn.textContent = '…';
-  showSync('Saving to GitHub…', 'saving');
+  if (!ghConfig.owner || !ghConfig.repo || !ghConfig.pat) return;
+  showSync('Saving…', 'saving');
   try {
     const getHeaders = { 'Authorization': 'token ' + ghConfig.pat };
     const getRes = await fetch(`https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/data.json`, { headers: getHeaders });
@@ -1301,9 +1321,8 @@ async function saveToGitHub() {
       method:'PUT', headers:{...getHeaders,'Content-Type':'application/json'}, body:JSON.stringify(body)
     });
     if (!putRes.ok) { const e = await putRes.json().catch(()=>({})); throw new Error(e.message || putRes.statusText); }
-    showSync('Saved to GitHub – ' + new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}), 'ok');
-  } catch(e) { showSync('Save failed: ' + e.message, 'error'); }
-  finally { btn.disabled = false; btn.textContent = '💾 Save'; }
+    showSync('Auto-saved – ' + new Date().toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'}), 'ok');
+  } catch(e) { showSync('Auto-save failed: ' + e.message, 'error'); }
 }
 
 // ══════════════════════════════════════════════════════════════
